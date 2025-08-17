@@ -1,25 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
-    <title>Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <title>ShopeeClone</title>
 </head>
+
 <body>
-    <header>
-    <div class="header_left">
-      <img src="" alt="Logo" class="logo" />
+  <div class="main-container">
+    <div class="design-system-section">
+      <div class="header">
+        <span class="shopeeclone-label">Shopee Clone</span>
+        <h1>Mua mọi thứ bạn thích ở đây</h1>
+        <div class="header-buttons">
+          <a href="pages/login.html">
+            <button class="primary-button">Login</button>
+            <button class="secondary-button">Sign Up</button>
+          </a>
+        </div>
+      </div>
+      <div class="components-grid">
+        <div class="component-card">
+          <span class="component-label">Text Input</span>
+          <input type="text" class="text-input" placeholder="Placeholder Text">
+        </div>
+        <div class="component-card">
+          <span class="component-label">Select</span>
+          <div class="select-container">
+            <select class="select-input">
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Checkbox</span>
+          <label class="checkbox-container">
+            <input type="checkbox" checked>
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Radio Button</span>
+          <label class="radio-container">
+            <input type="radio" name="radio-group" checked>
+            <span class="radiomark"></span>
+          </label>
+          <label class="radio-container">
+            <input type="radio" name="radio-group">
+            <span class="radiomark"></span>
+          </label>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Avatar</span>
+          <div class="avatar-container">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Tag</span>
+          <div class="tag">Tag A <i class="fa-solid fa-xmark"></i></div>
+          <div class="tag">Tag B <i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Tag Input</span>
+          <div class="tag-input-group">
+            <div class="tag-input-tag">Tag <i class="fa-solid fa-xmark"></i></div>
+            <input type="text" class="tag-input" placeholder="Type a tag">
+          </div>
+        </div>
+        <div class="component-card">
+          <span class="component-label">Button</span>
+          <button class="primary-button">Button</button>
+        </div>
+      </div>
+    </div>
+    <div class="chat-section">
+      <h2 class="chat-title">Chat Messages</h2>
+      <div class="message-container">
+        <div class="message-group"></div>
+      </div>
     </div>
 
-    <div class="header_right">
-      <nav class="navbar">
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="inbox.html">Inbox</a>
-        <a href="account.html">Account</a>
-      </nav>
-    </div>
-  </header>
+  </div>
+  <script src="js/index.js"></script>
 </body>
+
 </html>

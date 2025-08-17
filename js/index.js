@@ -3,17 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const messageGroup = document.querySelector(".message-group");
 
   const messages = [
-    "Xin chào bro!",
-    "Bạn khỏe không?",
-    "Mình ổn, cảm ơn nhé!",
-    "Bro đang làm gì đó?",
-    "Mình đang code chút bro ạ.",
-    "Hay quá nhỉ!",
-    "Code web à?",
-    "Đúng rồi, mình đang làm web.",
-    "Tuyệt vời!",
-    "Thành công nhé bro!",
-    "Cảm ơn bro nhiều nha!",
+    "Chào Shop! Shop có những cuốn sách về lập trình fix lỗi nào ạ?",
+    "Ồ, bên mình hiên tại đang có rất nhiều sách về lập trình fix lỗi.",
+    "Thế bạn hãy cho tôi 1 cuốn sách có chi tiết về lập trình fix lỗi và phải dễ hiểu.",
+    "Nếu như thế thì mình tư vấn cho bạn 1 cuốn có tên là Mã sạch Robert Martin",
+    "Thế nó như thế nào?",
+    "Nó có các cách giúp bạn code mà ít khi bị lỗi và nó sẽ tối sản code của bạn lại.",
+    "Vậy cuốn đó có giá bao nhiêu.",
+    "Nó chỉ có giá từ 100-200.000 đồng thôi.",
+    "Umm... Thế thì tôi sẽ mua nó sẽ mua nó.",
+    "Cảm ơn bạn rất nhiều!",
   ];
 
   // Render tất cả tin nhắn

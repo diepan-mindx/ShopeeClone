@@ -1,3 +1,5 @@
+
+
 header {
   display: flex;
   justify-content: space-between;
@@ -26,19 +28,45 @@ header {
 }
 
 .logo {
-  height: 40px;
+  height: 50px;
   width: auto;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .navbar a {
   color: white;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 8px;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar a:hover {
   color: #ff6b6b;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.navbar a img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.navbar a:not(:has(img)) {
+  font-size: 28px;
+  line-height: 1;
 }
 
 body {

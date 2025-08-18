@@ -29,16 +29,40 @@ header {
   height: 40px;
   width: auto;
 }
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
 .navbar a {
   color: white;
   text-decoration: none;
-  padding: 8px 16px;
+  padding: 8px 12px;
   font-size: 16px;
+  display: flex;
+  align-items: center;
 }
 
 .navbar a:hover {
   color: #ff6b6b;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.navbar a img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.navbar a:not(:has(img)) {
+  font-size: 24px;
+  line-height: 1;
 }
 
 body {

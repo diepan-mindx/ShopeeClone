@@ -8,21 +8,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/shop.css">
   <title>ShopeeClone</title>
 </head>
 
 <body>
+  <header>
+    <!-- Logo -->
+    <div class="header_left">
+      <img src="Shopee-Clone.png" alt="Logo" class="logo" />
+    </div>
+
+    <!-- Search -->
+    <div class="search">
+      <div class="search-box">
+        <input type="text" placeholder="Tìm sản phẩm, thương hiệu và tên shop">
+        <button class="search-btn">🔍</button>
+      </div>
+    </div>
+
+    <!-- Navbar Icons -->
+    <div class="header_right">
+      <nav class="navbar">
+        <a href="pages/shop.html"><img src="home-removebg-preview.png" alt="home" class="icon"></a>
+        <a href="pages/shop-cart.html"><img src="grocery-store.png" alt="cart" class="icon"></a>
+        <a href="pages/inbox.html"><img src="messages.png" alt="inbox" class="icon"></a>
+        <a href="pages/account.html"><img src="user.png" alt="user" class="icon"></a>
+      </nav>
+    </div>
+  </header>
+
   <div class="main-container">
     <div class="design-system-section">
-      <div class="header">
-        <span class="shopeeclone-label">Shopee Clone</span>
-        <h1>Mua mọi thứ bạn thích ở đây</h1>
-        <div class="header-buttons">
-          <a href="pages/login.html"><button class="primary-button">Login</button></a>
-          <a href="pages/login.html"><button class="secondary-button">Sign Up</button></a>
-        </div>
-      </div>
       <div class="components-grid">
         <div class="component-card">
           <span class="component-label">Text Input</span>
@@ -68,23 +85,6 @@
           <div class="tag">Tag B <i class="fa-solid fa-xmark"></i></div>
         </div>
         <div class="component-card">
-          <span class="component-label">Tag Input</span>
-          <div class="tag-input-group">
-            <div class="tag-input-tag">Tag <i class="fa-solid fa-xmark"></i></div>
-            <input type="text" class="tag-input" placeholder="Type a tag">
-          </div>
-        </div>
-        <div class="component-card">
-          <span class="component-label">Button</span>
-          <button class="primary-button">Button</button>
-        </div>
-      </div>
-    </div>
-    <div class="chat-section">
-      <h2 class="chat-title">Chat Messages</h2>
-      <div class="message-container">
-        <div class="message-group"></div>
-      </div>
     </div>
 
   </div>

@@ -26,22 +26,24 @@ header {
 }
 
 .logo {
-  height: 40px;
+  height: 70px;
   width: auto;
 }
+
 .navbar {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  gap: 12px;
 }
 
 .navbar a {
   color: white;
   text-decoration: none;
-  padding: 8px 12px;
-  font-size: 16px;
+  padding: 6px;
+  font-size: 14px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .navbar a:hover {
@@ -49,19 +51,19 @@ header {
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .navbar a img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .navbar a:not(:has(img)) {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
 }
 

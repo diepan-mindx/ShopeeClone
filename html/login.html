@@ -1,0 +1,58 @@
+Tuan Nghia
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <!-- Nút Back góc trên trái -->
+    <a class="back" href="../index.html">← Back</a>
+
+    <div class="container" id="container">
+        <!-- Form Signup -->
+        <div class="form-container sign-up-container">
+            <form action="shop.html" method="get">
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Name" required />
+                <input type="email" placeholder="Email" required />
+                <input type="password" placeholder="Password" required />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+        <!-- Form Signin -->
+        <div class="form-container sign-in-container">
+            <form action="shop.html" method="get">
+                <h1>Sign in</h1>
+                <input type="email" placeholder="Email" required />
+                <input type="password" placeholder="Password" required />
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Chào, bạn!</h1>
+                    <p>Hãy lập tài khoản mới để mua những gì mà bạn thích nhé!</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Chào mừng đã trở lại!</h1>
+                    <p>Đăng nhập vào tài khoản của bạn thôi nào!</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

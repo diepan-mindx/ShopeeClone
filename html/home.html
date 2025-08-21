@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị - Admin Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="sidebar bg-gray-800 text-white w-64 p-6">
+        <div class="text-xl font-bold mb-8">Admin Panel</div>
+        <nav class="flex flex-col space-y-4">
+            <a href="#" class="sidebar-item active">
+                <span class="mr-3">📊</span>
+                Bảng điều khiển
+            </a>
+            <a href="#" class="sidebar-item">
+                <span class="mr-3">📦</span>
+                Sản phẩm
+            </a>
+            <a href="#" class="sidebar-item">
+                <span class="mr-3">🛒</span>
+                Đơn hàng
+            </a>
+            <a href="#" class="sidebar-item">
+                <span class="mr-3">👥</span>
+                Người dùng
+            </a>
+            <a href="#" class="sidebar-item">
+                <span class="mr-3">⚙️</span>
+                Cài đặt
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">Bảng điều khiển</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600">Xin chào, Admin</span>
+                <img class="h-10 w-10 rounded-full" src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=AD" alt="Admin avatar">
+            </div>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Stat Card 1 -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-medium text-gray-500">Tổng doanh thu</span>
+                    <span class="text-green-500">📈</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900">$5,000</div>
+                <p class="text-sm text-gray-400 mt-2">+10% so với tháng trước</p>
+            </div>
+            <!-- Stat Card 2 -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-medium text-gray-500">Tổng đơn hàng</span>
+                    <span class="text-blue-500">📦</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900">1,250</div>
+                <p class="text-sm text-gray-400 mt-2">+5% so với tháng trước</p>
+            </div>
+            <!-- Stat Card 3 -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-medium text-gray-500">Người dùng mới</span>
+                    <span class="text-indigo-500">👥</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900">250</div>
+                <p class="text-sm text-gray-400 mt-2">+15% so với tháng trước</p>
+            </div>
+            <!-- Stat Card 4 -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-medium text-gray-500">Sản phẩm tồn kho</span>
+                    <span class="text-red-500">⚠️</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900">45</div>
+                <p class="text-sm text-gray-400 mt-2">Cần bổ sung</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+`                 

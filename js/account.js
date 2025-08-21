@@ -12,51 +12,51 @@ class AccountManager {
   }
 
   getCurrentUser() {
-    // Get current user from localStorage or return default
+    // Lấy user từ localStorage hoặc trả về mặc định nếu chưa có
     const user = localStorage.getItem("currentUser");
     return user
       ? JSON.parse(user)
       : {
-          name: "Người dùng",
-          email: "user@example.com",
+          name: "",
+          email: "",
           joinDate: new Date().toLocaleDateString("vi-VN"),
           profilePicture: "../user.png",
         };
   }
 
   loadUserData() {
-    // Load user data into the form
-    document.getElementById("account-name").value = this.currentUser.name;
+    // Hiển thị thông tin
+    document.getElementById("account-name").value = this.currentUser.name || "";
     document.getElementById("account-email").textContent =
-      this.currentUser.email;
+      this.currentUser.email || "Chưa đăng nhập";
     document.getElementById("join-date").textContent =
-      this.currentUser.joinDate;
+      this.currentUser.joinDate || "--/--/----";
 
-    // Load profile picture
+    // Avatar
     const profilePic = document.getElementById("profile-picture");
     profilePic.src = this.currentUser.profilePicture || "../user.png";
   }
 
   setupEventListeners() {
-    // Password form submission
+    // Submit đổi mật khẩu
     document.getElementById("password-form").addEventListener("submit", (e) => {
       e.preventDefault();
       this.changePassword();
     });
 
-    // Close buttons for modals
+    // Nút đóng modal
     document.querySelectorAll(".close").forEach((closeBtn) => {
       closeBtn.addEventListener("click", (e) => {
         const modal = e.target.closest(".modal");
-        if (modal) {
-          modal.style.display = "none";
-        }
+        if (modal) modal.style.display = "none";
       });
     });
 
-    // Email click handler
+    // Click email
     document.getElementById("account-email").addEventListener("click", () => {
-      this.showEmailInfo();
+      if (this.currentUser.email) {
+        this.showEmailInfo();
+      }
     });
   }
 
@@ -64,9 +64,7 @@ class AccountManager {
     const fileInput = document.getElementById("profile-upload");
     fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
-      if (file) {
-        this.uploadProfilePicture(file);
-      }
+      if (file) this.uploadProfilePicture(file);
     });
   }
 
@@ -77,8 +75,7 @@ class AccountManager {
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      // 2MB limit
-      alert("File ảnh không được vượt quá 2MB!");
+      alert("Ảnh không được vượt quá 2MB!");
       return;
     }
 
@@ -86,14 +83,12 @@ class AccountManager {
     reader.onload = (e) => {
       const imageData = e.target.result;
 
-      // Update profile picture
+      // Update avatar
       document.getElementById("profile-picture").src = imageData;
 
-      // Save to localStorage
+      // Save localStorage
       this.currentUser.profilePicture = imageData;
       localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-
-      alert("Ảnh hồ sơ đã được cập nhật thành công!");
     };
     reader.readAsDataURL(file);
   }
@@ -105,16 +100,13 @@ class AccountManager {
       alert("Vui lòng nhập tên hiển thị!");
       return;
     }
-
     if (newName.length < 2) {
       alert("Tên hiển thị phải có ít nhất 2 ký tự!");
       return;
     }
 
-    // Update user data
     this.currentUser.name = newName;
     localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-
     alert("Tên hiển thị đã được cập nhật!");
   }
 
@@ -127,33 +119,25 @@ class AccountManager {
       alert("Vui lòng điền đầy đủ thông tin!");
       return;
     }
-
     if (newPassword.length < 6) {
       alert("Mật khẩu mới phải có ít nhất 6 ký tự!");
       return;
     }
-
     if (newPassword !== confirmPassword) {
       alert("Mật khẩu xác nhận không khớp!");
       return;
     }
 
-    // In a real app, you would verify current password with server
-    // For demo purposes, we'll just update the password
     alert("Mật khẩu đã được thay đổi thành công!");
-
-    // Clear form
     document.getElementById("password-form").reset();
     this.closePasswordModal();
   }
 
   logout() {
     if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-      // Clear user session
       localStorage.removeItem("currentUser");
       localStorage.removeItem("isLoggedIn");
-
-      // Redirect to index page
+      // Chuyển hướng về trang index.html
       window.location.href = "../index.html";
     }
   }
@@ -175,50 +159,41 @@ class AccountManager {
   }
 }
 
-// Global functions for onclick events
+// Global functions cho onclick trong HTML
 function saveAccountName() {
-  accountManager.saveAccountName();
+  window.accountManager.saveAccountName();
 }
-
 function logout() {
-  accountManager.logout();
+  window.accountManager.logout();
 }
-
 function changePassword() {
   document.getElementById("password-modal").style.display = "block";
 }
-
 function closePasswordModal() {
-  accountManager.closePasswordModal();
+  window.accountManager.closePasswordModal();
 }
-
 function manageAddresses() {
-  accountManager.manageAddresses();
+  window.accountManager.manageAddresses();
 }
-
 function viewOrderHistory() {
-  accountManager.viewOrderHistory();
+  window.accountManager.viewOrderHistory();
 }
 
-// Initialize account manager when DOM is loaded
-let accountManager;
-document.addEventListener("DOMContentLoaded", () => {
-  accountManager = new AccountManager();
+// Khởi tạo
+window.addEventListener("DOMContentLoaded", () => {
+  window.accountManager = new AccountManager(); // gán global
 });
 
-// Close modal when clicking outside
+// Đóng modal khi click ngoài
 window.onclick = function (event) {
   const modal = document.getElementById("password-modal");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
+  if (event.target === modal) modal.style.display = "none";
 };
 
-// Close with Escape key
+// ESC để đóng modal
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    const modals = document.querySelectorAll(".modal");
-    modals.forEach((modal) => {
+    document.querySelectorAll(".modal").forEach((modal) => {
       modal.style.display = "none";
     });
   }

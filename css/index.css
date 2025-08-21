@@ -1,57 +1,36 @@
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.header_right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-right: 50px;
-}
-
-.header_left {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-left: 20px;
-}
-
-.logo {
-  height: 40px;
-  width: auto;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-  font-size: 16px;
-}
-
-.navbar a:hover {
-  color: #ff6b6b;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 body {
   margin: 0;
-  padding-top: 60px;
-  font-family: "Roboto", sans-serif;
-  margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #e0f7fa 0%, #fce4ec 100%);
+  font-family: "Roboto", sans-serif;
   color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background: linear-gradient(
+    45deg,
+    #d26014,
+    #fff8e1,
+    #ffffff,
+    #fff8e1,
+    #d26014
+  );
+  background-size: 300% 300%;
+  animation: gentleFlow 60s ease-in-out infinite;
+}
+
+@keyframes gentleFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .main-container {
@@ -63,7 +42,6 @@ body {
   gap: 40px;
 }
 
-/* PHẦN GIAO DIỆN DESIGN SYSTEM */
 .design-system-section {
   flex: 2;
   display: flex;
@@ -75,7 +53,15 @@ body {
   padding-right: 20px;
 }
 
-.case-study-label {
+h1 {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin: 10px 0 20px 0;
+}
+
+.shopeeclone-label {
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: 2px;
@@ -84,209 +70,15 @@ body {
   display: block;
 }
 
-h1 {
-  font-size: 48px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #1a1a1a;
-}
-
 .header-buttons {
   margin-top: 20px;
   display: flex;
   gap: 15px;
 }
 
-.components-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  align-items: start;
-}
-
-.component-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.component-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 5px 7px 15px rgba(0, 0, 0, 0.15);
-}
-
-.component-label {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 15px;
-  display: block;
-}
-
-input[type="text"],
-.select-container {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
-  box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-.select-input:focus {
-  outline: none;
-  border-color: #9c27b0;
-  box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
-}
-
-.select-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.select-input {
-  appearance: none;
-  width: 100%;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.select-container i {
-  position: absolute;
-  right: 15px;
-  color: #aaa;
-  font-size: 12px;
-  pointer-events: none;
-}
-
-.checkbox-container,
-.radio-container {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  font-size: 16px;
-  user-select: none;
-  margin-bottom: 10px;
-}
-.checkbox-container input,
-.radio-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-.checkmark,
-.radiomark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  background-color: #eee;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-.radiomark {
-  border-radius: 50%;
-}
-.checkbox-container input:checked ~ .checkmark,
-.radio-container input:checked ~ .radiomark {
-  background-color: #9c27b0;
-}
-.checkmark::after,
-.radiomark::after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.checkbox-container input:checked ~ .checkmark::after {
-  display: block;
-  left: 7px;
-  top: 3px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-}
-.radio-container input:checked ~ .radiomark::after {
-  display: block;
-  left: 6px;
-  top: 6px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-}
-
-.avatar-container {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: #999;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  border-radius: 16px;
-  font-size: 14px;
-  color: #555;
-  margin-right: 8px;
-}
-.tag i {
-  font-size: 12px;
-  margin-left: 8px;
-  color: #888;
-  cursor: pointer;
-}
-
-.tag-input-group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 5px;
-}
-.tag-input-tag {
-  background-color: #e0e0e0;
-  padding: 4px 8px;
-  border-radius: 12px;
-  margin-right: 5px;
-  font-size: 14px;
-  color: #555;
-  display: flex;
-  align-items: center;
-}
-.tag-input-tag i {
-  font-size: 10px;
-  margin-left: 5px;
-  cursor: pointer;
-}
-.tag-input {
-  border: none;
-  outline: none;
-  padding: 5px;
-  flex-grow: 1;
-}
-
+/* Nút chính */
 .primary-button {
-  background-color: #9c27b0;
+  background-color: #d26014;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -297,14 +89,15 @@ input[type="text"]:focus,
 }
 
 .primary-button:hover {
-  background-color: #6a1b9a;
+  background-color: #b54e0f; /* cam đậm hơn khi hover */
 }
 
+/* Nút phụ */
 .secondary-button {
   background-color: transparent;
-  color: #9c27b0;
+  color: #d26014;
   padding: 12px 24px;
-  border: 1px solid #9c27b0;
+  border: 1px solid #d26014;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -312,72 +105,6 @@ input[type="text"]:focus,
 }
 
 .secondary-button:hover {
-  background-color: #9c27b0;
+  background-color: #d26014;
   color: white;
-}
-
-/* PHẦN TIN NHẮN TỰ ĐỘNG DI CHUYỂN */
-.chat-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  transform: rotate(4deg); /* Hiệu ứng nghiêng */
-}
-
-.chat-title {
-  margin: 0 0 20px 0;
-  font-size: 24px;
-  color: #1a1a1a;
-  text-align: center;
-}
-
-.message-container {
-  flex-grow: 1;
-  overflow: hidden; /* Quan trọng để ẩn phần nội dung bị tràn ra */
-  position: relative;
-  padding: 10px;
-  background-color: #f7f9fb;
-  border-radius: 8px;
-}
-
-/* Hiệu ứng animation chính đã được khôi phục */
-@keyframes scrollUp {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-.message-group {
-  position: absolute;
-  top: 0;
-  left: 10px;
-  width: calc(100% - 20px);
-  display: flex;
-  flex-direction: column;
-  transform: translateY(0);
-  will-change: transform;
-}
-
-
-.message {
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  background-color: #e2f0ff;
-  border-radius: 18px;
-  width: fit-content;
-  max-width: 80%;
-  align-self: flex-start;
-  font-size: 14px;
-}
-
-.message.sent {
-  background-color: #dcf8c6;
-  align-self: flex-end;
 }

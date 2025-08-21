@@ -12,9 +12,29 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(
+    45deg,
+    #d26014,
+    #fff8e1,
+    #ffffff,
+    #fff8e1,
+    #d26014
+  );
+  background-size: 300% 300%;
+  animation: gentleFlow 60s ease-in-out infinite;
 }
 
+@keyframes gentleFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 /* Nút Back */
 .back {
   position: absolute;
@@ -25,8 +45,8 @@ body {
   font-size: 16px;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(135deg, #6a85f1, #8e63d4); /* tím xanh gần nền */
-  border: 2px solid rgba(255, 255, 255, 0.6); /* viền sáng */
+  background: #d26014;
+  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -36,7 +56,7 @@ body {
 .back:hover {
   transform: translateX(-5px) scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-  background: linear-gradient(135deg, #8e63d4, #6a85f1); /* đảo màu khi hover */
+  background: #b54e0f; /* đảo màu khi hover */
   border-color: #fff; /* hover viền trắng rõ hơn */
 }
 
@@ -99,7 +119,7 @@ input {
 button {
   border-radius: 20px;
   border: none;
-  background: #667eea;
+  background: #d26014;
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -124,7 +144,7 @@ button:active {
 }
 
 .overlay {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #f0bd9c;
   color: #fff;
   position: relative;
   left: -100%;

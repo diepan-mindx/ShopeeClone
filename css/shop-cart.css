@@ -2,13 +2,34 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(210, 96, 20);
   padding: 10px 20px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  background: linear-gradient(
+    45deg,
+    #d26014,
+    #fff8e1,
+    #ffffff,
+    #fff8e1,
+    #d26014
+  );
+  background-size: 300% 300%;
+  animation: gentleFlow 60s ease-in-out infinite;
+}
+
+@keyframes gentleFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .header_right {

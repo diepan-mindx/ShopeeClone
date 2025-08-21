@@ -18,8 +18,8 @@
     <!-- Search -->
     <div class="search">
       <div class="search-box">
-        <input type="text" placeholder="Tìm sản phẩm, thương hiệu và tên shop">
-        <button class="search-btn">🔍</button>
+        <input id="searchInput" type="text" placeholder="Tìm sản phẩm, thương hiệu và tên shop">
+        <button id="searchBtn" class="search-btn">🔍</button>
       </div>
     </div>
 
@@ -33,7 +33,14 @@
       </nav>
     </div>
   </header>
+
+  <!-- Kết quả tìm kiếm -->
+  <main>
+    <div id="results" class="results"></div>
+  </main>
+
   <script src="../js/shop.js"></script>
 </body>
+
 
 </html>

@@ -3,145 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng nhập / Đăng ký - ShopeeClone</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #F8FAFC; /* nền giống dashboard */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      color: #1E293B;
-    }
+  <title>Đăng nhập / Đăng ký - Admin Shop</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e8f5e9, #ffffff); /* nền xanh nhạt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    width: 380px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+  }
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .tabs button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s;
+  }
+  .tabs button.active {
+    border-bottom: 3px solid #2ecc71; /* màu chủ đạo */
+    color: #2ecc71;
+  }
+  form {
+    display: none;
+    flex-direction: column;
+  }
+  form.active {
+    display: flex;
+  }
+  input {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  button.submit-btn {
+    margin-top: 10px;
+    padding: 12px;
+    background: #2ecc71; /* màu nút */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  button.submit-btn:hover {
+    background: #27ae60; /* màu đậm hơn khi hover */
+  }
+  .note {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+  }
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+</style>
 
-    .container {
-      width: 400px;
-      background: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 30px;
-    }
-
-    /* Card chào mừng */
-    .welcome {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      width: 60px;
-      height: 60px;
-      background: #2563EB;
-      color: #fff;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 15px auto;
-    }
-
-    .welcome h2 {
-      margin: 0;
-      font-size: 22px;
-      color: #1E293B;
-    }
-
-    .welcome p {
-      margin: 5px 0 0;
-      font-size: 14px;
-      color: #64748B;
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
-    }
-
-    .tabs button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: bold;
-      border-bottom: 3px solid transparent;
-      transition: 0.3s;
-      color: #475569;
-    }
-
-    .tabs button.active {
-      border-bottom: 3px solid #2563EB;
-      color: #2563EB;
-    }
-
-    form {
-      display: none;
-      flex-direction: column;
-    }
-
-    form.active {
-      display: flex;
-    }
-
-    input {
-      margin: 10px 0;
-      padding: 12px;
-      border: 1px solid #CBD5E1;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #2563EB;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-    }
-
-    button.submit-btn {
-      margin-top: 10px;
-      padding: 12px;
-      background: #2563EB;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    button.submit-btn:hover {
-      background: #1D4ED8;
-    }
-
-    .note {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #64748B;
-      cursor: pointer;
-    }
-
-    .note:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
-    <!-- Card chào mừng -->
-    <div class="welcome">
-      <div class="logo">AD</div>
-      <h2>Chào mừng đến ShopeeClone</h2>
-      <p>Đăng nhập hoặc đăng ký để tiếp tục</p>
-    </div>
-
     <div class="tabs">
       <button id="login-tab" class="active">Đăng nhập</button>
       <button id="signup-tab">Đăng ký</button>
@@ -149,19 +91,20 @@
 
     <!-- Form Login -->
     <form id="login-form" class="active">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Mật khẩu" required>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Mật khẩu" required>
       <button type="submit" class="submit-btn">Đăng nhập</button>
-      <p class="note">Quên mật khẩu?</p>
+      <p id="login-error" class="error"></p>
     </form>
 
     <!-- Form Signup -->
     <form id="signup-form">
-      <input type="text" placeholder="Tên của bạn" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Mật khẩu" required>
-      <input type="password" placeholder="Nhập lại mật khẩu" required>
+      <input type="text" id="signup-name" placeholder="Tên của bạn" required>
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <input type="password" id="signup-password" placeholder="Mật khẩu" required>
+      <input type="password" id="signup-confirm" placeholder="Nhập lại mật khẩu" required>
       <button type="submit" class="submit-btn">Đăng ký</button>
+      <p id="signup-error" class="error"></p>
     </form>
   </div>
 
@@ -170,6 +113,8 @@
     const signupTab = document.getElementById("signup-tab");
     const loginForm = document.getElementById("login-form");
     const signupForm = document.getElementById("signup-form");
+
+   
 
     // Chuyển tab
     loginTab.addEventListener("click", () => {
@@ -186,18 +131,43 @@
       loginForm.classList.remove("active");
     });
 
-    // Xử lý login
+    // Xử lý đăng nhập
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      alert("Đăng nhập thành công!");
-      window.location.href = "home.html"; 
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      const errorMsg = document.getElementById("login-error");
+
+      const userData = JSON.parse(localStorage.getItem("user"));
+
+      if(userData && email === userData.email && password === userData.password) {
+        alert("Đăng nhập thành công!");
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "home.html";
+      } else {
+        errorMsg.textContent = "Sai email hoặc mật khẩu!";
+      }
     });
 
-    // Xử lý signup
+    // Xử lý đăng ký
     signupForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      const name = document.getElementById("signup-name").value;
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      const confirm = document.getElementById("signup-confirm").value;
+      const errorMsg = document.getElementById("signup-error");
+
+      if(password !== confirm) {
+        errorMsg.textContent = "Mật khẩu không khớp!";
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("isLoggedIn", "true");
       alert("Đăng ký thành công!");
-      window.location.href = "home.html"; 
+      window.location.href = "home.html";
     });
   </script>
 </body>

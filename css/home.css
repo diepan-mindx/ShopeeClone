@@ -1,0 +1,46 @@
+/* Card chung */
+.card {
+  cursor: pointer;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  flex: 1;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Tiêu đề bảng */
+.table-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 16px 0;
+}
+
+/* Bảng */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table th {
+  background: #f5f5f5;
+  font-weight: bold;
+}
+
+/* Hiệu ứng ẩn/hiện bảng */
+.hidden {
+  display: none;
+}

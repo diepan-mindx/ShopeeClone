@@ -1,103 +1,88 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Quản Trị - Admin Dashboard</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex">
+<body class="bg-gray-100">
 
+  <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside class="sidebar bg-gray-800 text-white w-64 p-6">
-        <div class="text-xl font-bold mb-8">Admin Panel</div>
-        <nav class="flex flex-col space-y-4">
-            <a href="#" class="sidebar-item active">
-                <span class="mr-3">📊</span>
-                Bảng điều khiển
-            </a>
-            <a href="#" class="sidebar-item">
-                <span class="mr-3">📦</span>
-                Sản phẩm
-            </a>
-            <a href="#" class="sidebar-item">
-                <span class="mr-3">🛒</span>
-                Đơn hàng
-            </a>
-            <a href="#" class="sidebar-item">
-                <span class="mr-3">👥</span>
-                Người dùng
-            </a>
-            <a href="#" class="sidebar-item">
-                <span class="mr-3">⚙️</span>
-                Cài đặt
-            </a>
-        </nav>
+    <aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
+      <h2 class="text-2xl font-bold mb-6">Admin Panel</h2>
+      <nav class="space-y-2">
+        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+          <span class="mr-3">🏠</span>
+          Trang chủ
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+          <span class="mr-3">📦</span>
+          Sản phẩm
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+          <span class="mr-3">🛒</span>
+          Đơn hàng
+        </a>
+        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-gray-200">
+          <span class="mr-3">👥</span>
+          Người dùng
+        </a>
+      </nav>
     </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-8">
-        <!-- Header -->
-        <header class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">Bảng điều khiển</h1>
-            <div class="flex items-center space-x-4">
-                <!-- Nút đăng nhập và đăng ký -->
-                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-                    Đăng nhập & Đăng ký
-                </a>
-                <!-- Avatar admin -->
-                <span class="text-gray-600 hidden md:inline">Xin chào, Admin</span>
-                <img class="h-10 w-10 rounded-full" src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=AD" alt="Admin avatar">
-            </div>
-        </header>
+    <!-- Main content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">📊 Bảng điều khiển</h1>
+        <div class="flex items-center space-x-4">
+          <span id="welcome" class="text-gray-600 hidden md:inline">Xin chào, Admin</span>
+          <img class="h-10 w-10 rounded-full" src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=AD" alt="Admin avatar">
 
-        <!-- Stats Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Stat Card 1 -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-medium text-gray-500">Tổng doanh thu</span>
-                    <span class="text-green-500">📈</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900">$5,000</div>
-                <p class="text-sm text-gray-400 mt-2">+10% so với tháng trước</p>
-            </div>
-            <!-- Stat Card 2 -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-medium text-gray-500">Tổng đơn hàng</span>
-                    <span class="text-blue-500">📦</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900">1,250</div>
-                <p class="text-sm text-gray-400 mt-2">+5% so với tháng trước</p>
-            </div>
-            <!-- Stat Card 3 -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-medium text-gray-500">Người dùng mới</span>
-                    <span class="text-indigo-500">👥</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900">250</div>
-                <p class="text-sm text-gray-400 mt-2">+15% so với tháng trước</p>
-            </div>
-            <!-- Stat Card 4 -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-medium text-gray-500">Sản phẩm tồn kho</span>
-                    <span class="text-red-500">⚠️</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900">45</div>
-                <p class="text-sm text-gray-400 mt-2">Cần bổ sung</p>
-            </div>
+          <!-- Nút Cài đặt -->
+          <a href="settings.html" class="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 transition">
+            ⚙️ Cài đặt
+          </a>
+
+          <!-- Nút Đăng xuất -->
+          <button id="logout" class="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition">
+            Đăng xuất
+          </button>
         </div>
+      </header>
+
+      <!-- Dashboard content -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-lg shadow">
+          <h2 class="text-xl font-bold mb-2">📦 Sản phẩm</h2>
+          <p class="text-gray-600">Quản lý tất cả sản phẩm trong cửa hàng.</p>
+        </div>
+        <div class="p-6 bg-white rounded-lg shadow">
+          <h2 class="text-xl font-bold mb-2">🛒 Đơn hàng</h2>
+          <p class="text-gray-600">Theo dõi và xử lý các đơn hàng.</p>
+        </div>
+        <div class="p-6 bg-white rounded-lg shadow">
+          <h2 class="text-xl font-bold mb-2">👥 Người dùng</h2>
+          <p class="text-gray-600">Quản lý thông tin khách hàng và nhân viên.</p>
+        </div>
+      </section>
     </main>
+  </div>
+
+  <script>
+    // Lấy thông tin admin từ localStorage
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser) {
+      document.getElementById("welcome").innerText = "Xin chào, " + currentUser.username;
+    }
+
+    // Xử lý đăng xuất
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("currentUser");
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
 </html>

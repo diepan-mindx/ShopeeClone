@@ -1,132 +1,204 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Đăng Nhập</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .login-card {
-            background-color: #fff;
-            border-radius: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        @media (min-width: 1024px) {
-            .login-card {
-                flex-direction: row;
-            }
-        }
-        .social-button {
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: background-color 0.2s;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập / Đăng ký - ShopeeClone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #F8FAFC; /* nền giống dashboard */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #1E293B;
+    }
+
+    .container {
+      width: 400px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    /* Card chào mừng */
+    .welcome {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      background: #2563EB;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px auto;
+    }
+
+    .welcome h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #1E293B;
+    }
+
+    .welcome p {
+      margin: 5px 0 0;
+      font-size: 14px;
+      color: #64748B;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 3px solid transparent;
+      transition: 0.3s;
+      color: #475569;
+    }
+
+    .tabs button.active {
+      border-bottom: 3px solid #2563EB;
+      color: #2563EB;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    input {
+      margin: 10px 0;
+      padding: 12px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    button.submit-btn {
+      margin-top: 10px;
+      padding: 12px;
+      background: #2563EB;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button.submit-btn:hover {
+      background: #1D4ED8;
+    }
+
+    .note {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #64748B;
+      cursor: pointer;
+    }
+
+    .note:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 lg:p-10">
-
-    <div class="login-card w-full max-w-6xl mx-auto">
-        
-        <!-- Banner Section (visible on large screens) -->
-        <div class="hidden lg:flex w-full lg:w-1/2 bg-gradient-to-r from-blue-500 to-indigo-600 items-center justify-center p-12 relative">
-            <div class="text-center text-white relative z-10">
-                <h1 class="text-4xl font-extrabold mb-4">Chào mừng trở lại!</h1>
-                <p class="text-lg mb-6 leading-relaxed">
-                    Mua sắm hàng ngàn sản phẩm với giá ưu đãi tốt nhất. Đăng nhập để khám phá ngay!
-                </p>
-                <div class="absolute inset-0 bg-black opacity-10"></div>
-            </div>
-        </div>
-
-        <!-- Login/Register Form Section -->
-        <div class="w-full lg:w-1/2 p-8 lg:p-12 flex items-center justify-center bg-white relative">
-            <div class="w-full max-w-sm">
-                <h2 id="form-title" class="text-3xl font-extrabold text-gray-900 text-center mb-2">Đăng Nhập</h2>
-                <p id="form-subtitle" class="text-center text-sm text-gray-500 mb-8">
-                    Chào mừng bạn trở lại, vui lòng đăng nhập để tiếp tục.
-                </p>
-
-                <!-- Social Login Buttons -->
-                <div class="flex justify-center space-x-4 mb-6">
-                    <button class="social-button bg-blue-600 text-white hover:bg-blue-700" aria-label="Đăng nhập với Google">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12h-4v9h-4v-9h-4v-4h4V3a4 4 0 0 1 4-4h4z" />
-                        </svg>
-                    </button>
-                    <button class="social-button bg-indigo-600 text-white hover:bg-indigo-700" aria-label="Đăng nhập với Facebook">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Separator -->
-                <div class="relative mb-6">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="bg-white px-2 text-gray-500">
-                            Hoặc đăng nhập bằng email
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Login Form -->
-                <form id="login-form" class="space-y-6">
-                    <div id="name-field" class="hidden">
-                        <label for="name" class="sr-only">Tên</label>
-                        <input id="name" name="name" type="text" required class="w-full p-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Tên của bạn">
-                    </div>
-                    <div>
-                        <label for="email-address" class="sr-only">Địa chỉ email</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required class="w-full p-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Địa chỉ email">
-                    </div>
-                    <div>
-                        <label for="password" class="sr-only">Mật khẩu</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required class="w-full p-3 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="Mật khẩu">
-                    </div>
-                    
-                    <div id="remember-me-section" class="flex items-center justify-between text-sm">
-                        <div class="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember-me" class="ml-2 block text-gray-900">Ghi nhớ đăng nhập</label>
-                        </div>
-                        <div class="text-right">
-                            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Quên mật khẩu?</a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="submit" id="submit-button" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                            Đăng Nhập
-                        </button>
-                    </div>
-                </form>
-
-                <p class="mt-8 text-center text-sm text-gray-600">
-                    Bạn chưa có tài khoản?
-                    <button id="toggle-button" class="font-medium text-blue-600 hover:text-blue-500 ml-1 transition-colors">
-                        Đăng ký ngay!
-                    </button>
-                </p>
-            </div>
-        </div>
+<body>
+  <div class="container">
+    <!-- Card chào mừng -->
+    <div class="welcome">
+      <div class="logo">AD</div>
+      <h2>Chào mừng đến ShopeeClone</h2>
+      <p>Đăng nhập hoặc đăng ký để tiếp tục</p>
     </div>
 
-    <script src="script.js"></script>
+    <div class="tabs">
+      <button id="login-tab" class="active">Đăng nhập</button>
+      <button id="signup-tab">Đăng ký</button>
+    </div>
+
+    <!-- Form Login -->
+    <form id="login-form" class="active">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Mật khẩu" required>
+      <button type="submit" class="submit-btn">Đăng nhập</button>
+      <p class="note">Quên mật khẩu?</p>
+    </form>
+
+    <!-- Form Signup -->
+    <form id="signup-form">
+      <input type="text" placeholder="Tên của bạn" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Mật khẩu" required>
+      <input type="password" placeholder="Nhập lại mật khẩu" required>
+      <button type="submit" class="submit-btn">Đăng ký</button>
+    </form>
+  </div>
+
+  <script>
+    const loginTab = document.getElementById("login-tab");
+    const signupTab = document.getElementById("signup-tab");
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+
+    // Chuyển tab
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+    });
+
+    signupTab.addEventListener("click", () => {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+    });
+
+    // Xử lý login
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Đăng nhập thành công!");
+      window.location.href = "home.html"; 
+    });
+
+    // Xử lý signup
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Đăng ký thành công!");
+      window.location.href = "home.html"; 
+    });
+  </script>
 </body>
 </html>

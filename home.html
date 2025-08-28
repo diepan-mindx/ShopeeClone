@@ -7,7 +7,6 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -50,7 +49,12 @@
         <header class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Bảng điều khiển</h1>
             <div class="flex items-center space-x-4">
-                <span class="text-gray-600">Xin chào, Admin</span>
+                <!-- Nút đăng nhập và đăng ký -->
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                    Đăng nhập & Đăng ký
+                </a>
+                <!-- Avatar admin -->
+                <span class="text-gray-600 hidden md:inline">Xin chào, Admin</span>
                 <img class="h-10 w-10 rounded-full" src="https://placehold.co/40x40/E2E8F0/A0AEC0?text=AD" alt="Admin avatar">
             </div>
         </header>
@@ -97,4 +101,3 @@
     </main>
 </body>
 </html>
-`                 

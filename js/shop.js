@@ -24,6 +24,11 @@ function renderProducts(items) {
       <p>$${p.price}</p>
     `;
 
+    // 👉 Khi bấm vào sản phẩm, chuyển sang trang products.html
+    productEl.addEventListener("click", () => {
+      window.location.href = `products.html?id=${p.id}`;
+    });
+
     resultsContainer.appendChild(productEl);
   });
 }
@@ -31,7 +36,7 @@ function renderProducts(items) {
 // Khi bấm nút search
 searchBtn.addEventListener("click", () => {
   const keyword = searchInput.value.toLowerCase().trim();
-  
+
   // Nếu không có từ khóa, hiển thị tất cả sản phẩm
   if (!keyword) {
     renderProducts(products);
@@ -66,5 +71,6 @@ fetch("https://dummyjson.com/products")
   })
   .catch((error) => {
     console.error("Lỗi khi tải sản phẩm:", error);
-    resultsContainer.innerHTML = "<p>Lỗi khi tải sản phẩm. Vui lòng thử lại sau.</p>";
+    resultsContainer.innerHTML =
+      "<p>Lỗi khi tải sản phẩm. Vui lòng thử lại sau.</p>";
   });

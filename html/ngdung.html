@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Người dùng</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">Admin Panel</div>
+    <nav>
+      <ul>
+        <li><a href="../home.html">📊 Bảng điều khiển</a></li>
+        <li><a href="sanpham.html">📦 Sản phẩm</a></li>
+        <li><a href="donhang.html">🛒 Đơn hàng</a></li>
+        <li><a href="voucher.html">⚡ Khuyến mãi</a></li>
+        <li><a href="ngdung.html" class="active">👥 Người dùng</a></li>
+        <li><a href="tuchoidonhang.html">🚫 Từ chối đơn hàng</a></li>
+        <li><a href="../settings.html">⚙️ Cài đặt</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="content">
+    <header class="header">
+      <h1>👥 Quản lý người dùng</h1>
+      <button id="logout" class="logout-btn">Đăng xuất</button>
+    </header>
+
+    <section class="card">
+      <h2>Danh sách người dùng</h2>
+      <table class="table">
+        <thead>
+          <tr><th>ID</th><th>Tên</th><th>Email</th><th>Vai trò</th><th>Hành động</th></tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>

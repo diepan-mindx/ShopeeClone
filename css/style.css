@@ -1,0 +1,237 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Layout */
+body {
+  display: flex;
+  background: #f5f6fa;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 230px;
+  background: linear-gradient(180deg, #1e3a8a, #1e293b);
+  color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  border-radius: 0 15px 15px 0;
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 12px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 15px;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.sidebar ul li a.active {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 30px;
+  position: relative;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+/* Buttons */
+.logout-btn,
+.save-btn {
+  background: linear-gradient(90deg, #2563eb, #9333ea);
+  border: none;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s, opacity 0.3s;
+}
+
+.logout-btn {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.logout-btn:hover,
+.save-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+/* Dashboard grid */
+.dashboard {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard .card {
+  flex: 1;
+  text-align: center;
+  min-width: 200px;
+  color: #fff;
+}
+
+.dashboard .card:nth-child(1) {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+.dashboard .card:nth-child(2) {
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+.dashboard .card:nth-child(3) {
+  background: linear-gradient(135deg, #9333ea, #a855f7);
+}
+
+.stat {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #9333ea;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(147,51,234,0.3);
+}
+
+/* Message */
+.message {
+  margin-top: 15px;
+  color: #16a34a;
+  display: none;
+}
+
+/* Bảng sản phẩm/đơn hàng... full width + cột dãn đều */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;   /* ép các cột chia đều */
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* căn chỉnh riêng cho từng cột */
+th:nth-child(1), td:nth-child(1) { width: 10%; text-align: center; }
+th:nth-child(2), td:nth-child(2) { width: 25%; }
+th:nth-child(3), td:nth-child(3) { width: 15%; text-align: right; }
+th:nth-child(4), td:nth-child(4) { width: 35%; }
+th:nth-child(5), td:nth-child(5) { width: 15%; text-align: center; }
+
+/* làm cho nút hành động nhìn đẹp hơn */
+.actions .btn {
+  margin: 0 4px;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+/* Voucher Table riêng (3 cột: Mã, % giảm, Hành động) */
+.voucher-table th:nth-child(1),
+.voucher-table td:nth-child(1) {
+  width: 40%;
+  text-align: left;
+}
+
+.voucher-table th:nth-child(2),
+.voucher-table td:nth-child(2) {
+  width: 30%;
+  text-align: center;
+}
+
+.voucher-table th:nth-child(3),
+.voucher-table td:nth-child(3) {
+  width: 30%;
+  text-align: center;
+}

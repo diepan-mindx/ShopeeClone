@@ -3,88 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cài đặt tài khoản - Admin Panel</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="css/adminpro.css">
-
+  <title>Cài đặt tài khoản</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-gray-100 min-h-screen flex">
-
+<body>
   <!-- Sidebar -->
-  <aside class="bg-gray-800 text-white w-64 p-6">
-    <div class="text-xl font-bold mb-8">Admin Panel</div>
-    <nav class="flex flex-col space-y-4">
-      <a href="home.html" class="hover:text-blue-400">📊 Bảng điều khiển</a>
-      <a href="home.html#products" class="hover:text-blue-400">📦 Sản phẩm</a>
-      <a href="home.html#orders" class="hover:text-blue-400">🛒 Đơn hàng</a>
-      <a href="home.html#users" class="hover:text-blue-400">👥 Người dùng</a>
-      <a href="settings.html" class="text-blue-400 font-semibold">⚙️ Cài đặt</a>
+  <aside class="sidebar">
+    <div class="logo">Admin Panel</div>
+    <nav>
+      <ul>
+        <li><a href="home.html">📊 Bảng điều khiển</a></li>
+        <li><a href="html/sanpham.html">📦 Sản phẩm</a></li>
+        <li><a href="html/donhang.html">🛒 Đơn hàng</a></li>
+        <li><a href="html/voucher.html">⚡ Khuyến mãi</a></li>
+        <li><a href="html/ngdung.html">👥 Người dùng</a></li>
+        <li><a href="html/tuchoidonhang.html">🚫 Từ chối đơn hàng</a></li>
+        <li><a href="settings.html" class="active">⚙️ Cài đặt</a></li>
+      </ul>
     </nav>
   </aside>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-8">
-    <!-- Header -->
-    <header class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">⚙️ Cài đặt tài khoản</h1>
-      <button id="logout" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-        Đăng xuất
-      </button>
+  <!-- Main -->
+  <main class="content">
+    <header class="header">
+      <h1>⚙️ Cài đặt tài khoản</h1>
+      <button id="logout" class="logout-btn">Đăng xuất</button>
     </header>
 
-    <!-- Account Settings Form -->
-    <section class="bg-white p-6 rounded-lg shadow max-w-2xl">
-      <h2 class="text-xl font-semibold mb-4">Thông tin tài khoản</h2>
-      <form id="settingsForm" class="space-y-4">
-        <div>
-          <label class="block mb-1 text-gray-600">Tên hiển thị</label>
-          <input type="text" id="name" class="w-full p-2 border rounded-lg" required>
+    <section class="card">
+      <h2>Thông tin tài khoản</h2>
+      <form id="settingsForm">
+        <div class="form-group">
+          <label for="name">Tên hiển thị</label>
+          <input type="text" id="name" required>
         </div>
-        <div>
-          <label class="block mb-1 text-gray-600">Email</label>
-          <input type="email" id="email" class="w-full p-2 border rounded-lg" required>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
         </div>
-        <div>
-          <label class="block mb-1 text-gray-600">Mật khẩu</label>
-          <input type="password" id="password" class="w-full p-2 border rounded-lg" required>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" required>
         </div>
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Lưu thay đổi
-        </button>
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
       </form>
-      <p id="message" class="mt-4 text-green-600 hidden">✅ Cập nhật thành công!</p>
+      <p id="message" class="message">✅ Cập nhật thành công!</p>
     </section>
   </main>
 
-  <script>
-    // Nếu chưa đăng nhập thì quay lại trang login
-    if(localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "index.html";
-    }
-
-    // Load thông tin user từ localStorage
-    const user = JSON.parse(localStorage.getItem("user")) || {};
-    document.getElementById("name").value = user.name || "";
-    document.getElementById("email").value = user.email || "";
-    document.getElementById("password").value = user.password || "";
-
-    // Cập nhật thông tin
-    document.getElementById("settingsForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const updatedUser = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
-      };
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      document.getElementById("message").classList.remove("hidden");
-    });
-
-    // Đăng xuất
-    document.getElementById("logout").addEventListener("click", () => {
-      localStorage.setItem("isLoggedIn", "false");
-      window.location.href = "index.html";
-    });
-  </script>
+  <script src="js/app.js"></script>
 </body>
 </html>

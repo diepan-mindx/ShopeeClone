@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+#order-container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#order-container img {
+  margin: 15px 0;
+}
+
+.order-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 24px;
+  background: #d26014;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.order-btn:hover {
+  background: #b8510f;
+}
+
+.order-info button {
+  padding: 4px 8px;
+  margin: 0 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.order-info button:hover {
+  background: #bbb;
+}

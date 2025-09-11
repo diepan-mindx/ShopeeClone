@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop Cart</title>
   <link rel="stylesheet" href="../css/shop.css">
+  <link rel="stylesheet" href="../css/shop-cart.css"><!-- style riêng cho giỏ hàng -->
 </head>
 
 <body>
@@ -13,14 +14,6 @@
     <!-- Logo -->
     <div class="header_left">
       <img src="../Shopee-Clone.png" alt="Logo" class="logo" />
-    </div>
-
-    <!-- Search -->
-    <div class="search">
-      <div class="search-box">
-        <input id="searchInput" type="text" placeholder="Tìm tên shop">
-        <button id="searchBtn" class="search-btn">🔍</button>
-      </div>
     </div>
 
     <!-- Navbar Icons -->
@@ -33,6 +26,15 @@
       </nav>
     </div>
   </header>
+
+  <!-- 👉 Khu vực giỏ hàng -->
+  <main>
+    <h1 style="text-align:center; margin-top:100px;">🛒 Giỏ hàng của bạn</h1>
+    <div id="cart-container"></div>
+  </main>
+
+  <!-- Script xử lý giỏ hàng -->
+  <script src="../js/shop-cart.js"></script>
 </body>
 
 </html>

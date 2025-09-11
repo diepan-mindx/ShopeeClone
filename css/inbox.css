@@ -67,6 +67,23 @@ header {
   line-height: 1;
 }
 
+.order-msg {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.order-msg img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 body {
   margin: 0;
   padding-top: 60px;

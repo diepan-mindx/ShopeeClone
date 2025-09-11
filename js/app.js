@@ -83,6 +83,9 @@ function initPage(file) {
 
 /* ================= Home ================= */
 function initHome() {
+  const nameDisplay = document.getElementById("admin-name");
+  const user = JSON.parse(localStorage.getItem("user")) || { name: "Admin" };
+  if (nameDisplay) nameDisplay.textContent = user.name;
   console.log("Home dashboard ready.");
 }
 
@@ -153,33 +156,32 @@ function initProducts() {
   }
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let products = getProducts();
+      e.preventDefault();
+      let products = getProducts();
 
-    const priceNumber = sanitizeNumberFromString(priceIn.value);
+      const priceNumber = sanitizeNumberFromString(priceIn.value);
+      if (idIn.value) {
+        const id = Number(idIn.value);
+        products = products.map((p) =>
+          p.id === id
+            ? { id, name: nameIn.value.trim(), price: priceNumber, desc: descIn.value.trim() }
+            : p
+        );
+      } else {
+        const newId = Date.now();
+        products.push({
+          id: newId,
+          name: nameIn.value.trim(),
+          price: priceNumber,
+          desc: descIn.value.trim(),
+        });
+      }
 
-    if (idIn.value) {
-      const id = Number(idIn.value);
-      products = products.map((p) =>
-        p.id === id
-          ? { id, name: nameIn.value.trim(), price: priceNumber, desc: descIn.value.trim() }
-          : p
-      );
-    } else {
-      const newId = Date.now();
-      products.push({
-        id: newId,
-        name: nameIn.value.trim(),
-        price: priceNumber,
-        desc: descIn.value.trim(),
-      });
-    }
-
-    saveProducts(products);
-    form.reset();
-    idIn.value = "";
-    render();
-  });
+      saveProducts(products);
+      form.reset();
+      idIn.value = "";
+      render();
+    });
 
   window.editProduct = (id) => {
     const p = getProducts().find((x) => x.id === id);
@@ -197,7 +199,6 @@ function initProducts() {
     render();
   };
 
-  // normalize giá cũ
   (function normalizeExistingProducts() {
     const arr = getProducts();
     let changed = false;
@@ -277,7 +278,6 @@ function initOrders() {
 /* ================= Vouchers ================= */
 function initVouchers() {
   const tbody = document.getElementById("voucherTableBody");
-  // Kiểm tra xem form có tồn tại trên trang không
   const form = document.getElementById("voucherForm"); 
   const codeIn = form ? document.getElementById("v_code") : null;
   const perIn = form ? document.getElementById("v_percent") : null;
@@ -324,20 +324,17 @@ function initVouchers() {
       const newCode = codeIn.value.trim().toUpperCase();
       const newPercent = sanitizeNumberFromString(perIn.value);
 
-      // Thêm kiểm tra trùng mã voucher khi thêm mới
       if (!oldCodeIn.value && vouchers.some(v => v.code === newCode)) {
         alert("Mã voucher đã tồn tại. Vui lòng chọn mã khác.");
         return;
       }
       
       if (oldCodeIn.value) {
-        // Chế độ sửa
         const oldCode = oldCodeIn.value;
         vouchers = vouchers.map((v) => 
           v.code === oldCode ? { code: newCode, percent: newPercent } : v
         );
       } else {
-        // Chế độ thêm mới
         vouchers.push({ code: newCode, percent: newPercent });
       }
 

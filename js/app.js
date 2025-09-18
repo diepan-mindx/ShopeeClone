@@ -1,12 +1,8 @@
 /* app.js - quản lý chung Admin Panel */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const file = location.pathname.split("/").pop() || "home.html";
-
-  // Nếu chưa đăng nhập -> quay lại index.html (bạn bật khi cần)
-  if (file !== "index.html" && localStorage.getItem("isLoggedIn") !== "true") {
-    // window.location.href = "index.html";
-  }
+  const path = location.pathname;
+  const file = path.substring(path.lastIndexOf("/") + 1) || "home.html";
 
   // Sidebar active link
   setActiveNav(file);
@@ -54,12 +50,18 @@ function sanitizeNumberFromString(str) {
 
 function initPage(file) {
   switch (file) {
+    // Các file ở gốc
+    case "index.html":
+      initIndex();
+      break;
     case "home.html":
       initHome();
       break;
     case "settings.html":
       initSettings();
       break;
+
+    // Các file trong thư mục html/
     case "sanpham.html":
       initProducts();
       break;
@@ -75,10 +77,37 @@ function initPage(file) {
     case "tuchoidonhang.html":
       initRejected();
       break;
+
     default:
       console.log("No specific JS for this page.");
       break;
   }
+}
+
+/* ================= Index/Login ================= */
+function initIndex() {
+  const form = document.getElementById("loginForm");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email === "admin@mail.com" && password === "123") {
+      const users = getUsers();
+      const existingUser = users.find((u) => u.email === email);
+      if (!existingUser) {
+        const newId = Date.now();
+        users.push({ id: newId, name: "Admin", email: email, role: "Quản trị viên" });
+        localStorage.setItem("users", JSON.stringify(users));
+      }
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("user", JSON.stringify({ name: "Admin", email, password }));
+      window.location.href = "home.html";
+    } else {
+      alert("Email hoặc mật khẩu không đúng!");
+    }
+  });
 }
 
 /* ================= Home ================= */
@@ -156,32 +185,32 @@ function initProducts() {
   }
 
   form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let products = getProducts();
+    e.preventDefault();
+    let products = getProducts();
+    const priceNumber = sanitizeNumberFromString(priceIn.value);
 
-      const priceNumber = sanitizeNumberFromString(priceIn.value);
-      if (idIn.value) {
-        const id = Number(idIn.value);
-        products = products.map((p) =>
-          p.id === id
-            ? { id, name: nameIn.value.trim(), price: priceNumber, desc: descIn.value.trim() }
-            : p
-        );
-      } else {
-        const newId = Date.now();
-        products.push({
-          id: newId,
-          name: nameIn.value.trim(),
-          price: priceNumber,
-          desc: descIn.value.trim(),
-        });
-      }
+    if (idIn.value) {
+      const id = Number(idIn.value);
+      products = products.map((p) =>
+        p.id === id
+          ? { id, name: nameIn.value.trim(), price: priceNumber, desc: descIn.value.trim() }
+          : p
+      );
+    } else {
+      const newId = Date.now();
+      products.push({
+        id: newId,
+        name: nameIn.value.trim(),
+        price: priceNumber,
+        desc: descIn.value.trim(),
+      });
+    }
 
-      saveProducts(products);
-      form.reset();
-      idIn.value = "";
-      render();
-    });
+    saveProducts(products);
+    form.reset();
+    idIn.value = "";
+    render();
+  });
 
   window.editProduct = (id) => {
     const p = getProducts().find((x) => x.id === id);
@@ -199,17 +228,6 @@ function initProducts() {
     render();
   };
 
-  (function normalizeExistingProducts() {
-    const arr = getProducts();
-    let changed = false;
-    const newArr = arr.map((p) => {
-      const sanitized = sanitizeNumberFromString(p.price);
-      if (sanitized !== Number(p.price)) changed = true;
-      return { ...p, price: sanitized };
-    });
-    if (changed) saveProducts(newArr);
-  })();
-
   render();
 }
 
@@ -222,8 +240,8 @@ function initOrders() {
     localStorage.setItem(
       "orders",
       JSON.stringify([
-        { id: 1, customer: "Nguyễn Văn A", status: "pending" },
-        { id: 2, customer: "Trần Thị B", status: "shipped" },
+        { id: 1, customer: "Nguyễn Văn A", product: "Áo phông logo", price: 120000, date: "2025-09-15", status: "pending" },
+        { id: 2, customer: "Trần Thị B", product: "Giày sneaker", price: 850000, date: "2025-09-14", status: "shipped" }
       ])
     );
   }
@@ -242,6 +260,9 @@ function initOrders() {
         <tr>
           <td>${o.id}</td>
           <td>${escapeHtml(o.customer)}</td>
+          <td>${escapeHtml(o.product)}</td>
+          <td>${formatCurrency(o.price)}</td>
+          <td>${o.date}</td>
           <td><span class="badge ${o.status}">${o.status}</span></td>
           <td>
             <button class="btn save-btn" onclick="shipOrder(${o.id})">Giao</button>
@@ -279,10 +300,6 @@ function initOrders() {
 function initVouchers() {
   const tbody = document.getElementById("voucherTableBody");
   const form = document.getElementById("voucherForm"); 
-  const codeIn = form ? document.getElementById("v_code") : null;
-  const perIn = form ? document.getElementById("v_percent") : null;
-  const oldCodeIn = form ? document.getElementById("v_old_code") : null;
-  
   if (!tbody) return;
 
   if (!localStorage.getItem("vouchers")) {
@@ -318,6 +335,10 @@ function initVouchers() {
   }
 
   if (form) {
+    const codeIn = document.getElementById("v_code");
+    const perIn = document.getElementById("v_percent");
+    const oldCodeIn = document.getElementById("v_old_code");
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       let vouchers = getVouchers();
@@ -345,11 +366,11 @@ function initVouchers() {
     });
 
     window.editVoucher = (code) => {
-        const voucher = getVouchers().find(v => v.code === code);
-        if (!voucher) return;
-        codeIn.value = voucher.code;
-        perIn.value = voucher.percent;
-        oldCodeIn.value = voucher.code;
+      const voucher = getVouchers().find(v => v.code === code);
+      if (!voucher) return;
+      codeIn.value = voucher.code;
+      perIn.value = voucher.percent;
+      oldCodeIn.value = voucher.code;
     }
   }
 
@@ -368,16 +389,6 @@ function initUsers() {
   const tbody = document.getElementById("usersTableBody");
   if (!tbody) return;
 
-  if (!localStorage.getItem("users")) {
-    localStorage.setItem(
-      "users",
-      JSON.stringify([
-        { id: 1, name: "Admin", email: "admin@mail.com", role: "Quản trị" },
-        { id: 2, name: "User A", email: "usera@mail.com", role: "Khách" },
-      ])
-    );
-  }
-
   function getUsers() {
     return JSON.parse(localStorage.getItem("users") || "[]");
   }
@@ -387,14 +398,30 @@ function initUsers() {
 
   function render() {
     tbody.innerHTML = "";
-    getUsers().forEach((u) => {
+    const users = getUsers();
+    if (users.length === 0) {
+      const defaultUsers = [
+        { id: 1, name: "Admin", email: "admin@mail.com", role: "Quản trị viên" },
+        { id: 2, name: "User A", email: "userA@mail.com", role: "Người dùng" }
+      ];
+      saveUsers(defaultUsers);
+      render();
+      return;
+    }
+
+    users.forEach((u) => {
       tbody.innerHTML += `
         <tr>
           <td>${u.id}</td>
           <td>${escapeHtml(u.name)}</td>
           <td>${escapeHtml(u.email)}</td>
           <td>${u.role}</td>
-          <td><button class="btn logout-btn" onclick="delUser(${u.id})">Xóa</button></td>
+          <td>
+            ${u.role === "Người dùng" 
+              ? `<button class="btn save-btn" onclick="makeAdmin(${u.id})">Cấp quyền Admin</button>` 
+              : `<em>Đã là Admin</em>`}
+            <button class="btn logout-btn" onclick="delUser(${u.id})">Xóa</button>
+          </td>
         </tr>`;
     });
   }
@@ -404,6 +431,14 @@ function initUsers() {
     let users = getUsers().filter((u) => u.id !== id);
     saveUsers(users);
     render();
+  };
+
+  window.makeAdmin = (id) => {
+    let users = getUsers();
+    users = users.map((u) => (u.id === id ? { ...u, role: "Quản trị viên" } : u));
+    saveUsers(users);
+    render();
+    alert("Đã cấp quyền quản trị viên cho tài khoản!");
   };
 
   render();

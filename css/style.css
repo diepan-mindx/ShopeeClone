@@ -6,7 +6,6 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Layout */
 body {
   display: flex;
   background: #f5f6fa;
@@ -16,222 +15,170 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 230px;
-  background: linear-gradient(180deg, #1e3a8a, #1e293b);
+  width: 220px;
+  background: #2d3436;
   color: #fff;
-  padding: 20px;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-  border-radius: 0 15px 15px 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar .logo {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 30px;
+  padding: 20px;
+  text-align: center;
+  background: #636e72;
 }
 
-.sidebar ul {
+.sidebar nav ul {
   list-style: none;
 }
 
-.sidebar ul li {
-  margin: 12px 0;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: #cbd5e1;
-  font-size: 15px;
+.sidebar nav ul li a {
   display: block;
-  padding: 10px 12px;
-  border-radius: 8px;
-  transition: all 0.3s;
+  padding: 12px 20px;
+  color: #dfe6e9;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-.sidebar ul li a:hover {
-  background: rgba(255,255,255,0.15);
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: #00b894;
   color: #fff;
-  transform: translateX(4px);
-}
-
-.sidebar ul li a.active {
-  background: #3b82f6;
-  color: #fff;
-  font-weight: bold;
 }
 
 /* Content */
 .content {
   flex: 1;
-  padding: 30px;
-  position: relative;
+  padding: 20px;
 }
 
-/* Header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-}
-
-.header h1 {
-  font-size: 26px;
-  font-weight: bold;
-  color: #1e293b;
-}
-
-/* Buttons */
-.logout-btn,
-.save-btn {
-  background: linear-gradient(90deg, #2563eb, #9333ea);
-  border: none;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: transform 0.2s, opacity 0.3s;
+  margin-bottom: 20px;
 }
 
 .logout-btn {
-  background: linear-gradient(90deg, #dc2626, #ef4444);
+  background: #d63031;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
 }
 
-.logout-btn:hover,
-.save-btn:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+.logout-btn:hover {
+  background: #e17055;
 }
 
 /* Card */
 .card {
   background: #fff;
-  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .card h2 {
-  font-size: 18px;
-  margin-bottom: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #636e72;
 }
 
-/* Dashboard grid */
-.dashboard {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+.card .stat {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2d3436;
 }
 
-.dashboard .card {
-  flex: 1;
+/* Table */
+.table, .voucher-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td,
+.voucher-table th, .voucher-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: center;
-  min-width: 200px;
+}
+
+.table th {
+  background: #00cec9;
   color: #fff;
 }
 
-.dashboard .card:nth-child(1) {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+.badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #fff;
 }
-.dashboard .card:nth-child(2) {
-  background: linear-gradient(135deg, #10b981, #34d399);
-}
-.dashboard .card:nth-child(3) {
-  background: linear-gradient(135deg, #9333ea, #a855f7);
-}
-
-.stat {
-  font-size: 28px;
-  font-weight: bold;
-  margin-top: 10px;
-}
+.badge.pending { background: #fdcb6e; }
+.badge.shipped { background: #0984e3; }
+.badge.done { background: #00b894; }
+.badge.cancel { background: #d63031; }
 
 /* Form */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .form-group label {
   display: block;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #374151;
+  margin-bottom: 4px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-group input:focus {
-  border-color: #9333ea;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(147,51,234,0.3);
-}
-
-/* Message */
-.message {
-  margin-top: 15px;
-  color: #16a34a;
-  display: none;
-}
-
-/* Bảng sản phẩm/đơn hàng... full width + cột dãn đều */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;   /* ép các cột chia đều */
-}
-
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: left;
-  vertical-align: middle;
-}
-
-/* căn chỉnh riêng cho từng cột */
-th:nth-child(1), td:nth-child(1) { width: 10%; text-align: center; }
-th:nth-child(2), td:nth-child(2) { width: 25%; }
-th:nth-child(3), td:nth-child(3) { width: 15%; text-align: right; }
-th:nth-child(4), td:nth-child(4) { width: 35%; }
-th:nth-child(5), td:nth-child(5) { width: 15%; text-align: center; }
-
-/* làm cho nút hành động nhìn đẹp hơn */
-.actions .btn {
-  margin: 0 4px;
-  padding: 4px 10px;
-  font-size: 0.9rem;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-/* Voucher Table riêng (3 cột: Mã, % giảm, Hành động) */
-.voucher-table th:nth-child(1),
-.voucher-table td:nth-child(1) {
-  width: 40%;
-  text-align: left;
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
 }
 
-.voucher-table th:nth-child(2),
-.voucher-table td:nth-child(2) {
-  width: 30%;
-  text-align: center;
+.save-btn { background: #00b894; }
+.save-btn:hover { background: #019875; }
+
+.error { color: red; margin-top: 10px; }
+
+/* Login Page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dfe6e9;
 }
 
-.voucher-table th:nth-child(3),
-.voucher-table td:nth-child(3) {
-  width: 30%;
+.login-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
   text-align: center;
 }

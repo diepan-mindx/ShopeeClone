@@ -32,9 +32,30 @@
 
     <section class="card">
       <h2>Danh sách đơn hàng</h2>
+
+      <!-- Bộ lọc & tìm kiếm -->
+      <div class="toolbar">
+        <select id="orderFilter">
+          <option value="all">Tất cả</option>
+          <option value="pending">⏳ Chờ xác nhận</option>
+          <option value="shipped">🚚 Đang giao</option>
+          <option value="done">✅ Hoàn thành</option>
+          <option value="cancel">❌ Đã hủy</option>
+        </select>
+        <input type="text" id="orderSearch" placeholder="🔍 Tìm theo khách hàng hoặc ID...">
+      </div>
+
       <table class="table">
         <thead>
-          <tr><th>ID</th><th>Khách hàng</th><th>Trạng thái</th><th>Hành động</th></tr>
+          <tr>
+            <th>ID</th>
+            <th>Khách hàng</th>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+          </tr>
         </thead>
         <tbody id="ordersTableBody"></tbody>
       </table>

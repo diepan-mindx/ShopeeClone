@@ -33,6 +33,22 @@
     <div id="cart-container"></div>
   </main>
 
+  <!-- Nút Mua tất cả cố định góc phải -->
+  <button id="buy-all-btn" class="buy-all-btn">Mua tất cả</button>
+
+  <!-- Modal danh sách đơn và tổng tiền -->
+  <div id="buy-all-modal" class="buy-all-modal hidden">
+    <div class="buy-all-content">
+      <h2>Thanh toán tất cả</h2>
+      <div id="order-list"></div>
+      <div class="order-total">Tổng cộng: $<span id="grand-total">0</span></div>
+      <div class="modal-actions">
+        <button id="confirm-buy-all" class="confirm-all-btn">Xác nhận mua</button>
+        <button id="close-buy-all" class="close-all-btn">Đóng</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Script xử lý giỏ hàng -->
   <script src="../js/shop-cart.js"></script>
 </body>

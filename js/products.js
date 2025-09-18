@@ -1,3 +1,6 @@
+import { db } from "./firebase-config.js";
+import { collection, addDoc, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
+
 // Lấy id từ URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -20,12 +23,34 @@ fetch(`https://dummyjson.com/products/${id}`)
     desc.textContent = p.description;
     price.textContent = `$${p.price}`;
 
-    // Thêm vào giỏ
-    addCartBtn.addEventListener("click", () => {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push(p);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert("Đã thêm vào giỏ hàng!");
+    // Thêm vào giỏ (Firestore)
+    addCartBtn.addEventListener("click", async () => {
+      try {
+        const cartCol = collection(db, "cart");
+        const q = query(cartCol, where("productId", "==", p.id));
+        const snap = await getDocs(q);
+
+        if (!snap.empty) {
+          // Đã có trong giỏ -> tăng số lượng
+          const existingDoc = snap.docs[0];
+          const currentQty = existingDoc.data().quantity || 1;
+          await updateDoc(doc(db, "cart", existingDoc.id), { quantity: currentQty + 1 });
+        } else {
+          // Chưa có -> thêm mới
+          await addDoc(cartCol, {
+            productId: p.id,
+            title: p.title,
+            price: p.price,
+            thumbnail: p.thumbnail,
+            quantity: 1
+          });
+        }
+
+        alert("Đã thêm vào giỏ hàng!");
+      } catch (err) {
+        console.error("Lỗi thêm giỏ hàng:", err);
+        alert("Có lỗi khi thêm vào giỏ. Vui lòng thử lại.");
+      }
     });
 
     // 👉 Mua ngay
@@ -39,20 +64,4 @@ fetch(`https://dummyjson.com/products/${id}`)
   .catch((err) => {
     console.error("Lỗi:", err);
   });
-
-// Thêm vào giỏ
-addCartBtn.addEventListener("click", () => {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // Kiểm tra sản phẩm đã có chưa
-  let existing = cart.find((item) => item.id === p.id);
-  if (existing) {
-    existing.quantity += 1; // tăng số lượng
-  } else {
-    p.quantity = 1; // lần đầu thì set = 1
-    cart.push(p);
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Đã thêm vào giỏ hàng!");
-});
+// Lưu ý: xử lý "Mua ngay" vẫn dùng localStorage để qua trang order.html

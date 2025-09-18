@@ -3,8 +3,8 @@ import {
   getAuth,
   onAuthStateChanged,
   signOut,
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { app } from "./firebase-auth.js"; // file firebase-auth.js phải export app
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { app } from "./firebase-config.js"; // file firebase-auth.js phải export app
 
 const auth = getAuth(app);
 

@@ -1,5 +1,5 @@
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import {doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
 
 const signUpButton = document.getElementById("signUp");
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("isLoggedIn", "true");
 
         alert("Đăng nhập thành công!");
-        window.location.href = "../index.html";
+        window.location.href = "../pages/shop.html";
       } catch (err) {
         console.error(err);
         alert(err.message || "Đăng nhập thất bại");

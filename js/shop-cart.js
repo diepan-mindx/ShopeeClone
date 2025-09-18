@@ -1,14 +1,8 @@
-import { db } from "./firebase-config.js";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db, auth } from "./firebase-config.js";
+import { collection, getDocs, deleteDoc, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const cartContainer = document.getElementById("cart-container");
 const cartRef = collection(db, "cart");
-const buyAllBtn = document.getElementById("buy-all-btn");
-const buyAllModal = document.getElementById("buy-all-modal");
-const orderListEl = document.getElementById("order-list");
-const grandTotalEl = document.getElementById("grand-total");
-const closeBuyAllBtn = document.getElementById("close-buy-all");
-const confirmBuyAllBtn = document.getElementById("confirm-buy-all");
 
 // 🔹 Lấy giỏ hàng từ Firestore
 async function getCart() {
@@ -34,23 +28,62 @@ async function renderCart() {
       <img src="${item.thumbnail}" alt="${item.title}">
       <div class="cart-info">
         <h3>${item.title}</h3>
-        <p>Giá: $${item.price} x ${item.quantity} = <strong>$${item.price * item.quantity
-      }</strong></p>
-        <button class="remove-btn">Xóa</button>
-        <button class="buy-btn">Mua ngay</button>
+        <p>Giá: $${item.price} x ${item.quantity} = <strong>$${item.price * item.quantity}</strong></p>
+        <button class="decrease-btn">➖</button>
+        <button class="increase-btn">➕</button>
+        <button class="remove-btn">❌ Xóa</button>
+        <button class="buy-btn">💳 Mua ngay</button>
       </div>
     `;
+
+    // ➖ Giảm số lượng
+    div.querySelector(".decrease-btn").addEventListener("click", async () => {
+      if (item.quantity > 1) {
+        await updateDoc(doc(db, "cart", item.docId), { quantity: item.quantity - 1 });
+      } else {
+        await deleteDoc(doc(db, "cart", item.docId)); // nếu = 0 thì xoá
+      }
+      renderCart();
+    });
+
+    // ➕ Tăng số lượng
+    div.querySelector(".increase-btn").addEventListener("click", async () => {
+      await updateDoc(doc(db, "cart", item.docId), { quantity: item.quantity + 1 });
+      renderCart();
+    });
 
     // ❌ Xóa khỏi Firebase
     div.querySelector(".remove-btn").addEventListener("click", async () => {
       await deleteDoc(doc(db, "cart", item.docId));
+      alert("🗑️ Đã xóa sản phẩm khỏi giỏ");
       renderCart();
     });
 
-    // ✅ Mua ngay
-    div.querySelector(".buy-btn").addEventListener("click", () => {
-      localStorage.setItem("orderProduct", JSON.stringify(item));
-      window.location.href = "order.html";
+    // ✅ Mua ngay (ưu tiên Firestore, fallback localStorage)
+    div.querySelector(".buy-btn").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        localStorage.setItem("orderProduct", JSON.stringify({
+          id: item.productId || item.id,
+          title: item.title,
+          price: item.price,
+          thumbnail: item.thumbnail,
+          description: item.description || "",
+          quantity: item.quantity || 1,
+        }));
+        window.location.href = "../pages/order.html";
+        return;
+      }
+      await setDoc(doc(db, "orderDrafts", user.uid), {
+        uid: user.uid,
+        productId: item.productId || item.id,
+        title: item.title,
+        price: item.price,
+        thumbnail: item.thumbnail,
+        description: item.description || "",
+        quantity: item.quantity || 1,
+      });
+      window.location.href = ("../pages/order.html");
     });
 
     cartContainer.appendChild(div);
@@ -58,64 +91,3 @@ async function renderCart() {
 }
 
 document.addEventListener("DOMContentLoaded", renderCart);
-
-// 🔹 Mua tất cả: mở modal, liệt kê từng đơn và tính tổng
-async function openBuyAllModal() {
-  const cart = await getCart();
-  if (!cart || cart.length === 0) {
-    alert("🛒 Giỏ hàng trống");
-    return;
-  }
-
-  orderListEl.innerHTML = "";
-
-  let total = 0;
-  cart.forEach((item) => {
-    const qty = item.quantity || 1;
-    const subtotal = (Number(item.price) || 0) * qty;
-    total += subtotal;
-
-    const row = document.createElement("div");
-    row.className = "order-row";
-    row.innerHTML = `
-      <img src="${item.thumbnail}" alt="${item.title}">
-      <div class="meta">
-        <div><strong>${item.title}</strong></div>
-        <div>Giá: $${item.price} x ${qty}</div>
-      </div>
-      <div class="price">$${subtotal}</div>
-    `;
-    orderListEl.appendChild(row);
-  });
-
-  grandTotalEl.textContent = total;
-  buyAllModal.classList.remove("hidden");
-}
-
-function closeBuyAllModal() {
-  buyAllModal.classList.add("hidden");
-}
-
-// 🔹 Xác nhận mua tất cả: xoá toàn bộ item trong Firestore và refresh
-async function confirmBuyAll() {
-  const cart = await getCart();
-  if (!cart || cart.length === 0) {
-    closeBuyAllModal();
-    return;
-  }
-
-  const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1), 0);
-
-  await Promise.all(
-    cart.map((item) => deleteDoc(doc(db, "cart", item.docId)))
-  );
-
-  alert(`🎉 Mua tất cả thành công! Tổng thanh toán: $${total}`);
-  closeBuyAllModal();
-  renderCart();
-}
-
-// Gắn sự kiện cho các nút modal
-if (buyAllBtn) buyAllBtn.addEventListener("click", openBuyAllModal);
-if (closeBuyAllBtn) closeBuyAllBtn.addEventListener("click", closeBuyAllModal);
-if (confirmBuyAllBtn) confirmBuyAllBtn.addEventListener("click", confirmBuyAll);

@@ -1,5 +1,7 @@
-import { db } from "./firebase-config.js";
-import { collection, addDoc, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
+import { db, auth } from "./firebase-config.js";
+import { collection, getDocs, query, where, addDoc, updateDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const cartRef = collection(db, "cart");
 
 // Lấy id từ URL
 const params = new URLSearchParams(window.location.search);
@@ -23,45 +25,65 @@ fetch(`https://dummyjson.com/products/${id}`)
     desc.textContent = p.description;
     price.textContent = `$${p.price}`;
 
-    // Thêm vào giỏ (Firestore)
+    // Thêm vào giỏ (Firestore-only)
     addCartBtn.addEventListener("click", async () => {
-      try {
-        const cartCol = collection(db, "cart");
-        const q = query(cartCol, where("productId", "==", p.id));
-        const snap = await getDocs(q);
-
-        if (!snap.empty) {
-          // Đã có trong giỏ -> tăng số lượng
-          const existingDoc = snap.docs[0];
-          const currentQty = existingDoc.data().quantity || 1;
-          await updateDoc(doc(db, "cart", existingDoc.id), { quantity: currentQty + 1 });
-        } else {
-          // Chưa có -> thêm mới
-          await addDoc(cartCol, {
-            productId: p.id,
-            title: p.title,
-            price: p.price,
-            thumbnail: p.thumbnail,
-            quantity: 1
-          });
-        }
-
-        alert("Đã thêm vào giỏ hàng!");
-      } catch (err) {
-        console.error("Lỗi thêm giỏ hàng:", err);
-        alert("Có lỗi khi thêm vào giỏ. Vui lòng thử lại.");
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Vui lòng đăng nhập để thêm vào giỏ hàng.");
+        window.location.href = "login.html";
+        return;
       }
+
+      const q = query(cartRef, where("productId", "==", p.id), where("uid", "==", user.uid));
+      const snapshot = await getDocs(q);
+
+      if (!snapshot.empty) {
+        const item = snapshot.docs[0];
+        const itemRef = doc(db, "cart", item.id);
+        const currentQty = item.data().quantity || 1;
+        await updateDoc(itemRef, { quantity: currentQty + 1 });
+      } else {
+        await addDoc(cartRef, {
+          uid: user.uid,
+          productId: p.id,
+          title: p.title,
+          price: p.price,
+          thumbnail: p.thumbnail,
+          quantity: 1,
+        });
+      }
+
+      alert("✅ Đã thêm sản phẩm vào giỏ hàng!");
     });
 
-    // 👉 Mua ngay
-    buyBtn.addEventListener("click", () => {
-      // Lưu sản phẩm vào localStorage để order.html đọc lại
-      localStorage.setItem("orderProduct", JSON.stringify(p));
-      // Chuyển sang trang order.html
-      window.location.href = "order.html";
+    // 👉 Mua ngay (ưu tiên Firestore, fallback localStorage)
+    buyBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        localStorage.setItem("orderProduct", JSON.stringify({
+          id: p.id,
+          title: p.title,
+          price: p.price,
+          thumbnail: p.thumbnail,
+          description: p.description,
+          quantity: 1,
+        }));
+        window.location.href = ("../pages/order.html");
+        return;
+      }
+
+      await setDoc(doc(db, "orderDrafts", user.uid), {
+        uid: user.uid,
+        productId: p.id,
+        title: p.title,
+        price: p.price,
+        thumbnail: p.thumbnail,
+        description: p.description,
+        quantity: 1,
+      });
+      window.location.href = ("../pages/order.html");
     });
   })
   .catch((err) => {
     console.error("Lỗi:", err);
   });
-// Lưu ý: xử lý "Mua ngay" vẫn dùng localStorage để qua trang order.html

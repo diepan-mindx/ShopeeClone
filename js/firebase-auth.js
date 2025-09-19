@@ -1,11 +1,11 @@
 // Import Firebase core & auth từ CDN
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 // Config Firebase (copy từ Firebase Console của bạn)
 const firebaseConfig = {

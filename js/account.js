@@ -1,15 +1,18 @@
+// ==============================
 // Import Firebase
+// ==============================
 import {
   getAuth,
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { app } from "./firebase-config.js"; // file firebase-auth.js phải export app
+import { app } from "./firebase-config.js";
 
+// Khởi tạo Auth
 const auth = getAuth(app);
 
 // ==============================
-// Account Manager
+// Account Manager Class
 // ==============================
 class AccountManager {
   constructor() {
@@ -18,22 +21,23 @@ class AccountManager {
     this.listenFirebaseAuth();
   }
 
+  // ==============================
+  // Khởi tạo
+  // ==============================
   init() {
     this.loadUserData();
     this.setupEventListeners();
     this.setupProfilePictureUpload();
   }
 
-  // Ưu tiên lấy từ Firebase, fallback sang localStorage
+  // Lấy thông tin user (ưu tiên Firebase, fallback localStorage)
   getCurrentUser() {
     const user = auth.currentUser;
     if (user) {
       return {
         name: user.displayName || "",
         email: user.email,
-        joinDate: new Date(user.metadata.creationTime).toLocaleDateString(
-          "vi-VN"
-        ),
+        joinDate: new Date(user.metadata.creationTime).toLocaleDateString("vi-VN"),
         profilePicture: user.photoURL || "../user.png",
       };
     }
@@ -42,14 +46,14 @@ class AccountManager {
     return localUser
       ? JSON.parse(localUser)
       : {
-          name: "",
-          email: "",
-          joinDate: new Date().toLocaleDateString("vi-VN"),
-          profilePicture: "../user.png",
-        };
+        name: "",
+        email: "",
+        joinDate: new Date().toLocaleDateString("vi-VN"),
+        profilePicture: "../user.png",
+      };
   }
 
-  // Load dữ liệu vào giao diện
+  // Load dữ liệu lên UI
   loadUserData() {
     document.getElementById("account-name").value = this.currentUser.name || "";
     document.getElementById("account-email").textContent =
@@ -61,6 +65,9 @@ class AccountManager {
     profilePic.src = this.currentUser.profilePicture || "../user.png";
   }
 
+  // ==============================
+  // Event Listeners
+  // ==============================
   setupEventListeners() {
     // Submit đổi mật khẩu
     document.getElementById("password-form").addEventListener("submit", (e) => {
@@ -68,15 +75,15 @@ class AccountManager {
       this.changePassword();
     });
 
-    // Nút đóng modal
-    document.querySelectorAll(".close").forEach((closeBtn) => {
-      closeBtn.addEventListener("click", (e) => {
+    // Đóng modal
+    document.querySelectorAll(".close").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         const modal = e.target.closest(".modal");
         if (modal) modal.style.display = "none";
       });
     });
 
-    // Click email
+    // Click email để xem chi tiết
     document.getElementById("account-email").addEventListener("click", () => {
       if (this.currentUser.email) {
         this.showEmailInfo();
@@ -84,6 +91,7 @@ class AccountManager {
     });
   }
 
+  // Upload avatar
   setupProfilePictureUpload() {
     const fileInput = document.getElementById("profile-upload");
     fileInput.addEventListener("change", (e) => {
@@ -112,6 +120,9 @@ class AccountManager {
     reader.readAsDataURL(file);
   }
 
+  // ==============================
+  // Quản lý hồ sơ
+  // ==============================
   saveAccountName() {
     const newName = document.getElementById("account-name").value.trim();
     if (!newName) {
@@ -127,6 +138,9 @@ class AccountManager {
     alert("Tên hiển thị đã được cập nhật!");
   }
 
+  // ==============================
+  // Quản lý mật khẩu
+  // ==============================
   changePassword() {
     const currentPassword = document.getElementById("current-password").value;
     const newPassword = document.getElementById("new-password").value;
@@ -150,6 +164,9 @@ class AccountManager {
     this.closePasswordModal();
   }
 
+  // ==============================
+  // Đăng xuất & chuyển tài khoản
+  // ==============================
   logout() {
     if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
       signOut(auth)
@@ -162,6 +179,20 @@ class AccountManager {
     }
   }
 
+  switchAccount() {
+    signOut(auth)
+      .catch(() => { })
+      .finally(() => {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("isLoggedIn");
+        // 🔥 Sửa đường dẫn login cho đúng
+        window.location.href = "login.html";
+      });
+  }
+
+  // ==============================
+  // Tính năng khác (placeholder)
+  // ==============================
   manageAddresses() {
     alert("Tính năng quản lý địa chỉ đang được phát triển!");
   }
@@ -170,6 +201,9 @@ class AccountManager {
     alert("Tính năng lịch sử đơn hàng đang được phát triển!");
   }
 
+  // ==============================
+  // Modal helpers
+  // ==============================
   closePasswordModal() {
     document.getElementById("password-modal").style.display = "none";
   }
@@ -178,16 +212,16 @@ class AccountManager {
     alert(`Email của bạn: ${this.currentUser.email}`);
   }
 
-  // Lắng nghe trạng thái Firebase Auth
+  // ==============================
+  // Firebase Auth Listener
+  // ==============================
   listenFirebaseAuth() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.currentUser = {
           name: user.displayName || "",
           email: user.email,
-          joinDate: new Date(user.metadata.creationTime).toLocaleDateString(
-            "vi-VN"
-          ),
+          joinDate: new Date(user.metadata.creationTime).toLocaleDateString("vi-VN"),
           profilePicture: user.photoURL || "../user.png",
         };
         this.loadUserData();
@@ -217,6 +251,9 @@ function manageAddresses() {
 function viewOrderHistory() {
   window.accountManager.viewOrderHistory();
 }
+function switchAccount() {
+  window.accountManager.switchAccount();
+}
 
 // ==============================
 // Khởi tạo AccountManager
@@ -225,13 +262,17 @@ window.addEventListener("DOMContentLoaded", () => {
   window.accountManager = new AccountManager();
 });
 
+// ==============================
 // Đóng modal khi click ngoài
+// ==============================
 window.onclick = function (event) {
   const modal = document.getElementById("password-modal");
   if (event.target === modal) modal.style.display = "none";
 };
 
+// ==============================
 // ESC để đóng modal
+// ==============================
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     document.querySelectorAll(".modal").forEach((modal) => {

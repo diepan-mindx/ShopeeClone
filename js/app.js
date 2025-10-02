@@ -48,42 +48,6 @@ function sanitizeNumberFromString(str) {
   return digits ? Number(digits) : 0;
 }
 
-function initPage(file) {
-  switch (file) {
-    // Các file ở gốc
-    case "index.html":
-      initIndex();
-      break;
-    case "home.html":
-      initHome();
-      break;
-    case "settings.html":
-      initSettings();
-      break;
-
-    // Các file trong thư mục html/
-    case "sanpham.html":
-      initProducts();
-      break;
-    case "donhang.html":
-      initOrders();
-      break;
-    case "voucher.html":
-      initVouchers();
-      break;
-    case "ngdung.html":
-      initUsers();
-      break;
-    case "tuchoidonhang.html":
-      initRejected();
-      break;
-
-    default:
-      console.log("No specific JS for this page.");
-      break;
-  }
-}
-
 /* ================= Index/Login ================= */
 function initIndex() {
   const form = document.getElementById("loginForm");
@@ -467,3 +431,45 @@ function initRejected() {
 
   render();
 }
+
+
+// app.js
+
+// ... (Các hàm Helpers khác: setActiveNav, logout, escapeHtml, formatCurrency, v.v...)
+
+/* ================= Page Initializers ================= */
+function initPage(file) {
+  // Hàm này ánh xạ tên file HTML với hàm khởi tạo JS tương ứng
+  switch (file) {
+    case "index.html": // Dành cho trang Admin Login
+    case "admin.html": // Nếu có trang Admin Login riêng
+      initIndex();
+      break;
+    case "home.html":
+      initHome();
+      break;
+    case "sanpham.html":
+      initProducts();
+      break;
+    case "donhang.html":
+      initOrders();
+      break;
+    case "voucher.html":
+      initVouchers();
+      break;
+    case "ngdung.html":
+      initUsers();
+      break;
+    case "tuchoidonhang.html":
+      initRejected();
+      break;
+    case "settings.html":
+      initSettings();
+      break;
+    // Thêm các case khác nếu bạn có thêm trang
+    default:
+      console.warn(`No initializer found for page: ${file}`);
+      break;
+  }
+}
+

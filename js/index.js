@@ -1,38 +1,6 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng nhập / Đăng ký - Admin Shop</title>
-  <link rel="stylesheet" href="/css/index.css">
-</head>
-<body>
-  <div class="container">
-    <div class="tabs">
-      <button id="login-tab" class="active">Đăng nhập</button>
-      <button id="signup-tab">Đăng ký</button>
-    </div>
 
-    <!-- Form Login -->
-    <form id="login-form" class="active">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Mật khẩu" required>
-      <button type="submit" class="submit-btn">Đăng nhập</button>
-      <p id="login-error" class="error"></p>
-    </form>
 
-    <!-- Form Signup -->
-    <form id="signup-form">
-      <input type="text" id="signup-name" placeholder="Tên của bạn" required>
-      <input type="email" id="signup-email" placeholder="Email" required>
-      <input type="password" id="signup-password" placeholder="Mật khẩu" required>
-      <input type="password" id="signup-confirm" placeholder="Nhập lại mật khẩu" required>
-      <button type="submit" class="submit-btn">Đăng ký</button>
-      <p id="signup-error" class="error"></p>
-    </form>
-  </div>
 
-  <script>
     const loginTab = document.getElementById("login-tab");
     const signupTab = document.getElementById("signup-tab");
     const loginForm = document.getElementById("login-form");
@@ -67,7 +35,7 @@
       if(userData && email === userData.email && password === userData.password) {
         alert("Đăng nhập thành công!");
         localStorage.setItem("isLoggedIn", "true");
-        window.location.href = "home.html";
+        window.location.href = "/html/home.html";
       } else {
         errorMsg.textContent = "Sai email hoặc mật khẩu!";
       }
@@ -91,8 +59,6 @@
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isLoggedIn", "true");
       alert("Đăng ký thành công!");
-      window.location.href = "home.html";
+      window.location.href = "/html/home.html";
     });
-  </script>
-</body>
-</html>
+    

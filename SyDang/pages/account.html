@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/account.css">
+    <title>Tài khoản của tôi</title>
+</head>
+<body>
+    <header>
+        <div class="header_left">
+            <img src="../assets/Shopee-Clone.png" alt="Logo" class="logo" />
+        </div>
+        <div class="header_right">
+            <nav class="navbar">
+                <a href="shop.html"><img src="../assets/home-removebg-preview.png" alt="home" class="icon"></a>
+                <a href="shop-cart.html"><img src="../assets/grocery-store.png" alt="cart" class="icon"></a>
+                <a href="inbox.html"><img src="../assets/messages.png" alt="inbox" class="icon"></a>
+                <a href="account.html"><img src="../assets/user.png" alt="user" class="icon"></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="account-container">
+        <div class="account-header">
+            <h1>Quản lý tài khoản</h1>
+        </div>
+
+        <div class="account-content">
+            <!-- Profile Section -->
+            <section class="profile-section">
+                <h2>Hồ sơ cá nhân</h2>
+                <div class="profile-card">
+                    <div class="profile-picture-container">
+                        <img id="profile-picture" src="../assets/user.png" alt="Ảnh hồ sơ" class="profile-picture">
+                        <div class="profile-picture-overlay">
+                            <input type="file" id="profile-upload" accept="image/*" hidden>
+                            <button class="edit-picture-btn" id="btn-edit-picture">
+                                <span>📷</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label for="account-name">Tên hiển thị:</label>
+                            <input type="text" id="account-name" placeholder="Nhập tên hiển thị">
+                            <button class="save-btn" id="btn-save-name">Lưu</button>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Email:</label>
+                            <span id="account-email" class="email-display"
+                                title="Nhấn để xem chi tiết">user@example.com</span>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Ngày tham gia:</label>
+                            <span id="join-date">01/01/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section">
+                <h2>Cài đặt</h2>
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <span>Chuyển đổi tài khoản</span>
+                        <button class="action-btn" id="btn-switch-account">Chuyển đổi</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <span>Quản lý địa chỉ</span>
+                        <button class="action-btn" id="btn-manage-address">Quản lý</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <span>Lịch sử đơn hàng</span>
+                        <button class="action-btn" id="btn-view-orders">Xem</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Logout Section -->
+            <section class="logout-section">
+                <a href="../index.html">
+                    <button class="logout-btn" id="btn-logout">
+                        <span>🚪</span>
+                        Đăng xuất
+                    </button>
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Password Change Modal -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="btn-close-modal">&times;</span>
+            <h3>Thay đổi mật khẩu</h3>
+            <form id="password-form">
+                <input type="password" id="current-password" placeholder="Mật khẩu hiện tại" required>
+                <input type="password" id="new-password" placeholder="Mật khẩu mới" required>
+                <input type="password" id="confirm-password" placeholder="Xác nhận mật khẩu" required>
+                <button type="submit">Cập nhật mật khẩu</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../js/account.js"></script>
+</body>
+</html>

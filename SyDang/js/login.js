@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const cred = await createUserWithEmailAndPassword(auth, email, password); // lưu vào xác thực người dùng trên firebase
         const uid = cred.user.uid;
 
         // Ghi hồ sơ người dùng vào Firestore, doc id = uid
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Lưu 1 bản vào localStorage cho UI hiện tại dùng
         localStorage.setItem("currentUser", JSON.stringify({ uid, name, email, profilePicture: "../user.png" }));
+        // JSON.stringify là chuyển từ object sang Json và string
         localStorage.setItem("isLoggedIn", "true");
 
         alert("Đăng ký thành công!");

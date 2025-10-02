@@ -1,6 +1,7 @@
-// Thay thế đường dẫn import sai bằng module chuẩn và import db từ id.js
-import { addDoc, collection, getDocs } from "firebase/firestore"; 
-import { db } from "./id.js"; // Import db từ file khởi tạo
+// Sửa lỗi: Import các hàm Firestore từ firebase-firestore.js
+import { addDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
+// Sửa lỗi: Import db từ file cấu hình đã được sửa (giả sử dùng id.js)
+import { db } from "../js/id.js"; 
 
 async function addAndFetchUsers() {
     try {
@@ -17,7 +18,8 @@ async function addAndFetchUsers() {
       // Ví dụ Lấy dữ liệu (Fetch)
       const querySnapshot = await getDocs(collection(db, "users"));
       querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
+        // Log dữ liệu một cách hợp lý
+        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
       });
 
     } catch (e) {
@@ -26,3 +28,4 @@ async function addAndFetchUsers() {
 }
 
 // Lưu ý: Bạn cần gọi hàm này (addAndFetchUsers()) để nó chạy.
+// addAndFetchUsers();

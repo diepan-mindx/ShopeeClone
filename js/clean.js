@@ -1,5 +1,7 @@
-import { doc, updateDoc, deleteField } from "firebase/firestore";
-import { db } from "./id.js"; // Import db từ file khởi tạo
+// Sửa lỗi: Import các hàm Firestore từ firebase-firestore.js
+import { doc, updateDoc, deleteField } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+// Sửa lỗi: Import db từ file cấu hình đã được sửa (giả sử dùng id.js)
+import { db } from "../js/id.js";
 
 async function removeField() {
     try {
@@ -14,3 +16,6 @@ async function removeField() {
         console.error("Error removing field: ", e);
     }
 }
+
+// Lưu ý: Bạn cần gọi hàm này (removeField()) để nó chạy.
+// removeField();

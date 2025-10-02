@@ -1,13 +1,5 @@
 
 
-
-    const loginTab = document.getElementById("login-tab");
-    const signupTab = document.getElementById("signup-tab");
-    const loginForm = document.getElementById("login-form");
-    const signupForm = document.getElementById("signup-form");
-
-   
-
     // Chuyển tab
     loginTab.addEventListener("click", () => {
       loginTab.classList.add("active");

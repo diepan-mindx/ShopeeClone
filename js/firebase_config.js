@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
+// Sửa đổi file firebase_config.js để export Auth và Firestore
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; // Thêm Auth
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; // Thêm Firestore (cho các file khác)
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Cấu hình Firebase project của bạn
 const firebaseConfig = {
   apiKey: "AIzaSyDdmY0eZzw0R3yqdliqQHyiplBlvPgduoo",
   authDomain: "jsi35-be345.firebaseapp.com",
@@ -17,6 +15,10 @@ const firebaseConfig = {
   measurementId: "G-FYYF98V50D"
 };
 
-// Initialize Firebase
+// Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Khởi tạo và Export các dịch vụ
+export const auth = getAuth(app); // Export đối tượng Auth
+export const googleProvider = new GoogleAuthProvider(); // Export đối tượng Google Provider
+export const db = getFirestore(app); // Export đối tượng Firestore (nếu cần dùng cho các file như addsanpham.js)

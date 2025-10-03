@@ -1,19 +1,23 @@
-// Import auth, googleProvider từ file cấu hình Firebase
-import { auth, googleProvider } from "./firebase_config.js";
+// index.js
+
+// Import Auth và Google Provider từ file cấu hình đã sửa
+import { auth, googleProvider } from "./firebase_config.js"; 
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
-    signInWithPopup
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; // Import các hàm Firebase Auth
+    signInWithPopup,
+    updateProfile // Thêm updateProfile để lưu Tên hiển thị
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; 
 
-// Lấy các phần tử DOM (cần được định nghĩa global hoặc lấy từ đầu file)
+// Lấy các phần tử DOM 
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const ggLoginBtn = document.getElementById("gg_login"); 
 
-// --- 1. Chuyển tab (Giữ nguyên logic HTML) ---
+
+// --- 1. Chuyển tab ---
 if (loginTab && signupTab && loginForm && signupForm) {
     loginTab.addEventListener("click", () => {
         loginTab.classList.add("active");
@@ -31,28 +35,25 @@ if (loginTab && signupTab && loginForm && signupForm) {
 }
 
 
-// --- 2. Xử lý ĐĂNG NHẬP bằng Email/Password (Sử dụng Firebase Auth) ---
+// --- 2. Xử lý ĐĂNG NHẬP bằng Email/Password ---
 if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
         const errorMsg = document.getElementById("login-error");
-        errorMsg.textContent = ""; // Xóa thông báo lỗi cũ
+        errorMsg.textContent = ""; 
 
         try {
-            // Gọi hàm đăng nhập của Firebase
+            // Sử dụng hàm đăng nhập của Firebase
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            alert("Đăng nhập thành công! Email: " + user.email);
+            alert("Đăng nhập thành công! Chuyển hướng đến Bảng điều khiển.");
             window.location.href = "/html/home.html";
         } catch (error) {
-            // Xử lý lỗi từ Firebase
-            let message = "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
+            let message = "Đăng nhập thất bại. Vui lòng kiểm tra lại Email/Mật khẩu.";
             if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
                 message = "Sai email hoặc mật khẩu.";
-            } else if (error.code === 'auth/invalid-email') {
-                message = "Email không hợp lệ.";
             }
             errorMsg.textContent = message;
             console.error("Lỗi Đăng nhập: ", error);
@@ -61,16 +62,16 @@ if (loginForm) {
 }
 
 
-// --- 3. Xử lý ĐĂNG KÝ (Sử dụng Firebase Auth) ---
+// --- 3. Xử lý ĐĂNG KÝ ---
 if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const name = document.getElementById("signup-name").value;
         const email = document.getElementById("signup-email").value;
         const password = document.getElementById("signup-password").value;
         const confirm = document.getElementById("signup-confirm").value;
-        // const name = document.getElementById("signup-name").value; // Để xử lý sau (updateProfile)
         const errorMsg = document.getElementById("signup-error");
-        errorMsg.textContent = ""; // Xóa thông báo lỗi cũ
+        errorMsg.textContent = ""; 
 
         if (password !== confirm) {
             errorMsg.textContent = "Mật khẩu không khớp!";
@@ -78,18 +79,16 @@ if (signupForm) {
         }
 
         try {
-            // Gọi hàm đăng ký của Firebase
+            // Sử dụng hàm đăng ký của Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            alert("Đăng ký thành công! Email: " + user.email);
 
-            // TODO: Bạn có thể thêm đoạn code để cập nhật tên hiển thị ở đây
-            // import { updateProfile } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-            // await updateProfile(user, { displayName: name });
-            
+            // Cập nhật tên hiển thị ngay sau khi đăng ký
+            await updateProfile(user, { displayName: name });
+
+            alert("Đăng ký thành công! Chuyển hướng đến Bảng điều khiển.");
             window.location.href = "/html/home.html";
         } catch (error) {
-            // Xử lý lỗi từ Firebase
             let message = "Đăng ký thất bại. Vui lòng thử lại.";
             if (error.code === 'auth/email-already-in-use') {
                 message = "Email này đã được sử dụng.";
@@ -106,14 +105,13 @@ if (signupForm) {
 if (ggLoginBtn) {
     ggLoginBtn.addEventListener("click", async () => {
         try {
-            // Gọi hàm đăng nhập Google
+            // Sử dụng hàm đăng nhập pop-up của Google
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
-            alert("Đăng nhập bằng Google thành công! Tên: " + user.displayName);
+            alert(`Đăng nhập bằng Google thành công! Tên: ${user.displayName || user.email}`);
             
             window.location.href = "/html/home.html";
         } catch (error) {
-            // Xử lý lỗi
             console.error("Lỗi Đăng nhập Google: ", error);
             document.getElementById("login-error").textContent = "Đăng nhập Google thất bại.";
         }

@@ -1,8 +1,6 @@
-// donhang.js
+// donhang.js (Logic Quản lý Đơn hàng)
 import { db } from "./firebase_config.js";
-import { 
-    collection, getDocs, doc, updateDoc, query, where, orderBy
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
+import { collection, getDocs, doc, updateDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
 
 const orderTableBody = document.getElementById('orderTableBody');
 const orderFilter = document.getElementById('orderFilter');
@@ -18,8 +16,8 @@ function getStatusText(status) {
     }
 }
 
-// Hàm tải và render đơn hàng
 async function loadOrders(filterStatus = 'all', searchKeyword = '') {
+    // ... logic loadOrders (đã có trong câu trả lời trước)
     orderTableBody.innerHTML = '<tr><td colspan="7">Đang tải đơn hàng...</td></tr>';
     
     let ordersCol = collection(db, "orders");
@@ -44,7 +42,6 @@ async function loadOrders(filterStatus = 'all', searchKeyword = '') {
         snapshot.forEach(doc => {
             const data = doc.data();
             
-            // Lọc client-side bằng từ khóa tìm kiếm (Tối ưu hóa: Firestore nên làm search bằng các dịch vụ khác)
             if (keyword && !(data.customerName?.toLowerCase().includes(keyword) || doc.id.includes(keyword))) {
                 return;
             }
@@ -73,7 +70,6 @@ async function loadOrders(filterStatus = 'all', searchKeyword = '') {
     }
 }
 
-// --- 2. Xử lý cập nhật trạng thái ---
 window.updateOrderStatus = async (orderId, newStatus) => {
     try {
         await updateDoc(doc(db, "orders", orderId), {
@@ -81,16 +77,14 @@ window.updateOrderStatus = async (orderId, newStatus) => {
             updatedAt: new Date()
         });
         alert(`Cập nhật đơn hàng thành ${getStatusText(newStatus)} thành công!`);
-        loadOrders(orderFilter.value, orderSearch.value); // Tải lại danh sách
+        loadOrders(orderFilter.value, orderSearch.value); 
     } catch (e) {
         console.error("Lỗi cập nhật trạng thái đơn hàng: ", e);
         alert("Cập nhật trạng thái thất bại.");
     }
 };
 
-// --- 3. Listener cho bộ lọc và tìm kiếm ---
 orderFilter.addEventListener('change', () => loadOrders(orderFilter.value, orderSearch.value));
 orderSearch.addEventListener('input', () => loadOrders(orderFilter.value, orderSearch.value)); 
 
-// Tải đơn hàng ban đầu
 loadOrders();

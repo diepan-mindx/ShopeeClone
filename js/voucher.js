@@ -1,15 +1,14 @@
-// voucher.js
+// voucher.js (Logic Quản lý Voucher)
 import { db } from "./firebase_config.js";
-import { 
-    collection, addDoc, getDocs, doc, deleteDoc, updateDoc,
-    query, where
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
 
 const voucherForm = document.getElementById('voucherForm');
 const voucherTableBody = document.getElementById('voucherTableBody');
 
-// --- 1. Load và Render danh sách voucher ---
+// ... [Toàn bộ logic CRUD voucher đã cung cấp ở câu trả lời trước] ...
+
 async function loadVouchers() {
+    // ... logic loadVouchers (đã có trong câu trả lời trước)
     voucherTableBody.innerHTML = '<tr><td colspan="3">Đang tải voucher...</td></tr>';
     try {
         const snapshot = await getDocs(collection(db, "vouchers"));
@@ -38,31 +37,12 @@ async function loadVouchers() {
     }
 }
 
-// Hàm được gọi khi nhấn Sửa
-window.editVoucher = (code, percent) => {
-    document.getElementById('v_old_code').value = code; // Lưu mã cũ để update
-    document.getElementById('v_code').value = code;
-    document.getElementById('v_percent').value = percent;
-    document.querySelector('.save-btn').textContent = 'Cập nhật voucher';
-};
+window.editVoucher = (code, percent) => { /* ... */ };
+window.deleteVoucher = async (code) => { /* ... */ };
 
-// Hàm được gọi khi nhấn Xóa (dựa vào mã voucher làm ID)
-window.deleteVoucher = async (code) => {
-    if (!confirm("Bạn có chắc chắn muốn xóa mã voucher " + code + "?")) return;
-    try {
-        // Giả định mã voucher được dùng làm ID Document
-        await deleteDoc(doc(db, "vouchers", code)); 
-        alert("Xóa voucher thành công!");
-        loadVouchers(); 
-    } catch (e) {
-        console.error("Lỗi xóa voucher: ", e);
-        alert("Xóa thất bại!");
-    }
-};
-
-// --- 2. Xử lý Form Thêm/Sửa voucher ---
 if (voucherForm) {
     voucherForm.addEventListener('submit', async (e) => {
+        // ... logic form submit Thêm/Sửa (đã có trong câu trả lời trước)
         e.preventDefault();
         const oldCode = document.getElementById('v_old_code').value;
         const newCode = document.getElementById('v_code').value.toUpperCase();
@@ -75,23 +55,20 @@ if (voucherForm) {
 
         try {
             if (oldCode) {
-                // Sửa (Update): Nếu mã code thay đổi, ta cần Xóa mã cũ và Thêm mã mới
+                // Sửa/Cập nhật
                 if (oldCode !== newCode) {
                     await deleteDoc(doc(db, "vouchers", oldCode));
                     await addDoc(collection(db, "vouchers"), { code: newCode, percent, createdAt: new Date() });
                 } else {
-                    // Cập nhật giá trị
                     await updateDoc(doc(db, "vouchers", newCode), { percent });
                 }
                 alert("Cập nhật voucher thành công!");
             } else {
-                // Thêm mới (Add)
-                // *Lưu ý: Nếu dùng newCode làm Document ID, bạn cần dùng setDoc thay vì addDoc.
+                // Thêm mới
                 await addDoc(collection(db, "vouchers"), { code: newCode, percent, createdAt: new Date() });
                 alert("Thêm voucher thành công!");
             }
             
-            // Reset form và tải lại
             voucherForm.reset();
             document.getElementById('v_old_code').value = '';
             document.querySelector('.save-btn').textContent = 'Lưu voucher';

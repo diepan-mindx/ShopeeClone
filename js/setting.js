@@ -1,23 +1,20 @@
-// settings.js
+// settings.js (Logic Cài đặt tài khoản)
 import { auth } from "./firebase_config.js";
-import { 
-    onAuthStateChanged, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider 
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { onAuthStateChanged, updateProfile, updatePassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
 const settingsForm = document.getElementById('settingsForm');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password'); // Mật khẩu mới
+const passwordInput = document.getElementById('password'); 
 
 let currentUser = null;
 
-// Tải thông tin người dùng hiện tại
 onAuthStateChanged(auth, (user) => {
     if (user) {
         currentUser = user;
         nameInput.value = user.displayName || "Chưa có tên";
         emailInput.value = user.email;
-        emailInput.disabled = true; // Không cho phép sửa email trực tiếp
+        emailInput.disabled = true; // Không cho phép sửa email
     }
 });
 
@@ -27,30 +24,26 @@ if (settingsForm) {
         const newName = nameInput.value;
         const newPassword = passwordInput.value;
         
-        if (!currentUser) {
-            alert("Lỗi: Không tìm thấy người dùng hiện tại.");
-            return;
-        }
+        if (!currentUser) return;
 
         try {
             let updateSuccessful = false;
 
-            // 1. Cập nhật Tên hiển thị
-            if (newName !== currentUser.displayName) {
+            // Cập nhật Tên hiển thị
+            if (newName && newName !== currentUser.displayName) {
                 await updateProfile(currentUser, { displayName: newName });
                 updateSuccessful = true;
             }
 
-            // 2. Cập nhật Mật khẩu
+            // Cập nhật Mật khẩu
             if (newPassword) {
                 if (newPassword.length < 6) {
                     alert("Mật khẩu mới phải có ít nhất 6 ký tự.");
                     return;
                 }
-                // *LƯU Ý QUAN TRỌNG: Cần re-authenticate nếu phiên đăng nhập quá lâu
-                // (Chức năng re-authenticate phức tạp và cần thêm form)
+                // Lưu ý: Người dùng có thể cần re-authenticate nếu phiên đăng nhập quá lâu
                 await updatePassword(currentUser, newPassword);
-                passwordInput.value = ''; // Xóa mật khẩu sau khi cập nhật
+                passwordInput.value = ''; 
                 updateSuccessful = true;
             }
 

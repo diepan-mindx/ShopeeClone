@@ -1,16 +1,13 @@
-// tuchoidonhang.js
+// tuchoidonhang.js (Logic Hiển thị Đơn hàng bị Hủy)
 import { db } from "./firebase_config.js";
-import { 
-    collection, getDocs, query, where, orderBy
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
+import { collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; 
 
-const rejectedTableBody = document.getElementById('rejectedTableBody'); // Cần thêm id này vào thẻ <tbody>
+const rejectedTableBody = document.getElementById('rejectedTableBody'); // Cần thêm id này vào thẻ <tbody> trong tuchoidonhang.html
 
 async function loadRejectedOrders() {
     rejectedTableBody.innerHTML = '<tr><td colspan="5">Đang tải đơn hàng bị từ chối...</td></tr>';
     
     let ordersCol = collection(db, "orders");
-    // Lọc các đơn hàng có trạng thái là 'cancel' (hoặc 'rejected' nếu bạn dùng)
     let q = query(ordersCol, where("status", "==", "cancel"), orderBy("orderDate", "desc"));
 
     try {

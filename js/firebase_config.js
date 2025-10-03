@@ -1,7 +1,7 @@
-// Sửa đổi file firebase_config.js để export Auth và Firestore
+// firebase_config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; // Thêm Auth
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js"; // Thêm Firestore (cho các file khác)
+import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
 // Cấu hình Firebase project của bạn
 const firebaseConfig = {
@@ -15,10 +15,9 @@ const firebaseConfig = {
   measurementId: "G-FYYF98V50D"
 };
 
-// Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
 
-// Khởi tạo và Export các dịch vụ
-export const auth = getAuth(app); // Export đối tượng Auth
-export const googleProvider = new GoogleAuthProvider(); // Export đối tượng Google Provider
-export const db = getFirestore(app); // Export đối tượng Firestore (nếu cần dùng cho các file như addsanpham.js)
+// EXPORT các đối tượng chính
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+export const db = getFirestore(app);

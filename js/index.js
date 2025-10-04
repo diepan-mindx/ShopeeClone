@@ -1,4 +1,4 @@
-// index.js
+// /js/index.js
 
 // Import Auth và Google Provider từ file cấu hình đã sửa
 import { auth, googleProvider } from "./firebase_config.js"; 
@@ -6,13 +6,13 @@ import {
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
     signInWithPopup,
-    updateProfile // Thêm updateProfile để lưu Tên hiển thị
+    updateProfile 
 } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; 
 
 // Lấy các phần tử DOM 
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
-const loginForm = document.getElementById("loginForm");
+    const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const ggLoginBtn = document.getElementById("gg_login"); 
 
@@ -35,7 +35,7 @@ if (loginTab && signupTab && loginForm && signupForm) {
 }
 
 
-// --- 2. Xử lý ĐĂNG NHẬP bằng Email/Password ---
+// --- 2. Xử lý ĐĂNG NHẬP bằng Email/Password (Dùng Firebase Auth) ---
 if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -45,9 +45,7 @@ if (loginForm) {
         errorMsg.textContent = ""; 
 
         try {
-            // Sử dụng hàm đăng nhập của Firebase
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+            await signInWithEmailAndPassword(auth, email, password);
             alert("Đăng nhập thành công! Chuyển hướng đến Bảng điều khiển.");
             window.location.href = "/html/home.html";
         } catch (error) {
@@ -62,7 +60,7 @@ if (loginForm) {
 }
 
 
-// --- 3. Xử lý ĐĂNG KÝ ---
+// --- 3. Xử lý ĐĂNG KÝ (Dùng Firebase Auth) ---
 if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -79,11 +77,9 @@ if (signupForm) {
         }
 
         try {
-            // Sử dụng hàm đăng ký của Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Cập nhật tên hiển thị ngay sau khi đăng ký
             await updateProfile(user, { displayName: name });
 
             alert("Đăng ký thành công! Chuyển hướng đến Bảng điều khiển.");
@@ -101,14 +97,12 @@ if (signupForm) {
     });
 }
 
-// --- 4. Xử lý ĐĂNG NHẬP bằng GOOGLE ---
+// --- 4. Xử lý ĐĂNG NHẬP bằng GOOGLE (Dùng Firebase Auth) ---
 if (ggLoginBtn) {
     ggLoginBtn.addEventListener("click", async () => {
         try {
-            // Sử dụng hàm đăng nhập pop-up của Google
-            const result = await signInWithPopup(auth, googleProvider);
-            const user = result.user;
-            alert(`Đăng nhập bằng Google thành công! Tên: ${user.displayName || user.email}`);
+            await signInWithPopup(auth, googleProvider);
+            alert(`Đăng nhập bằng Google thành công!`);
             
             window.location.href = "/html/home.html";
         } catch (error) {

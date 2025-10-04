@@ -32,7 +32,7 @@ async function loadDashboardStats() {
         document.querySelector('.stat-users .stat').textContent = formatNumber(userSnapshot.size);
 
     } catch (e) {
-        console.error("Lỗi tải thống kê Dashboard: ", e);
+        console.error("Lỗi tải thống kê Dashboard: ", e);   
         document.querySelectorAll('.stat').forEach(el => el.textContent = 'Lỗi');
     }
 }

@@ -182,3 +182,52 @@ body {
   margin-bottom: 20px;
   text-align: center;
 }
+
+/* Nút hành động trong trang người dùng */
+.btn-primary {
+  background: #0984e3; /* xanh dương nổi bật */
+}
+.btn-primary:hover {
+  background: #74b9ff;
+}
+
+.btn-danger {
+  background: #d63031; /* đỏ */
+}
+.btn-danger:hover {
+  background: #e17055;
+}
+/* Nút hành động cho bảng người dùng / sản phẩm / đơn hàng */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+/* Nút xanh – Đặt Admin, Sửa */
+.btn-primary {
+  background: #0984e3;
+}
+.btn-primary:hover {
+  background: #74b9ff;
+}
+
+/* Nút đỏ – Xóa */
+.btn-danger {
+  background: #d63031;
+}
+.btn-danger:hover {
+  background: #e17055;
+}
+
+/* Nút xám – nếu bạn có nút nào dạng “Xem” hoặc “Hủy” trung tính */
+.btn-secondary {
+  background: #636e72;
+}
+.btn-secondary:hover {
+  background: #b2bec3;
+}

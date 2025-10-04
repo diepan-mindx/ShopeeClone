@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="logo">Admin Panel</div>
     <nav>
@@ -17,13 +16,11 @@
         <li><a href="/html/donhang.html" class="active">🛒 Đơn hàng</a></li>
         <li><a href="/html/voucher.html">⚡ Khuyến mãi</a></li>
         <li><a href="/html/ngdung.html">👥 Người dùng</a></li>
-        <li><a href="/html/tuchoidonhang.html">🚫 Từ chối đơn hàng</a></li>
         <li><a href="/html/settings.html">⚙️ Cài đặt</a></li>
       </ul>
     </nav>
   </aside>
 
-  <!-- Main -->
   <main class="content">
     <header class="header">
       <h1>🛒 Quản lý đơn hàng</h1>
@@ -33,7 +30,6 @@
     <section class="card">
       <h2>Danh sách đơn hàng</h2>
 
-      <!-- Bộ lọc & tìm kiếm -->
       <div class="toolbar">
         <select id="orderFilter">
           <option value="all">Tất cả</option>
@@ -49,8 +45,8 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Khách hàng</th>
             <th>Sản phẩm</th>
+            <th>Số lượng</th>
             <th>Giá</th>
             <th>Ngày đặt</th>
             <th>Trạng thái</th>
@@ -61,7 +57,7 @@
       </table>
     </section>
   </main>
-<script type="module" src="../js/auth_guard.js"></script>
+<script type="module" src="../js/firebase_config.js"></script>
 <script type="module" src="../js/donhang.js"></script>
 </body>
 </html>

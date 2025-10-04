@@ -3,11 +3,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-// Cấu hình Firebase project của bạn
+// Cấu hình Firebase (đúng với project của bạn)
 const firebaseConfig = {
   apiKey: "AIzaSyDdmY0eZzw0R3yqdliqQHyiplBlvPgduoo",
   authDomain: "jsi35-be345.firebaseapp.com",
-  databaseURL: "https://jsi35-be345-default-rtdb.firebaseio.com",
   projectId: "jsi35-be345",
   storageBucket: "jsi35-be345.firebasestorage.app",
   messagingSenderId: "780445617838",
@@ -15,9 +14,10 @@ const firebaseConfig = {
   measurementId: "G-FYYF98V50D"
 };
 
+// Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
 
-// EXPORT các đối tượng chính
+// Xuất các đối tượng cần dùng
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);

@@ -24,11 +24,6 @@ function renderProducts(items) {
       <p>$${p.price}</p>
     `;
 
-    // 👉 Khi bấm vào sản phẩm, chuyển sang trang products.html
-    productEl.addEventListener("click", () => {
-      window.location.href = `products.html?id=${p.id}`;
-    });
-
     resultsContainer.appendChild(productEl);
   });
 }

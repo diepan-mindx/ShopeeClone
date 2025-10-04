@@ -1,66 +1,41 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sản phẩm</title>
-<link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../css/shop.css"> 
+  <title>Sản phẩm - Admin Shop</title>
 </head>
+
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">Admin Panel</div>
-    <nav>
-      <ul>
-        <li><a href="/html/home.html">📊 Bảng điều khiển</a></li>
-        <li><a href="/html/sanpham.html" class="active">📦 Sản phẩm</a></li>
-        <li><a href="/html/donhang.html">🛒 Đơn hàng</a></li>
-        <li><a href="/html/voucher.html">⚡ Khuyến mãi</a></li>
-        <li><a href="/html/ngdung.html">👥 Người dùng</a></li>
-        <li><a href="/html/tuchoidonhang.html">🚫 Từ chối đơn hàng</a></li>
-        <li><a href="/html/settings.html">⚙️ Cài đặt</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <header>
+    <aside class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <nav>
+        <ul>
+          <li><a href="/html/home.html">📊 Bảng điều khiển</a></li>
+          <li><a href="/html/sanpham.html" class="active">📦 Sản phẩm</a></li> 
+          <li><a href="/html/donhang.html">🛒 Đơn hàng</a></li>
+          <li><a href="/html/voucher.html">⚡ Khuyến mãi</a></li>
+          <li><a href="/html/ngdung.html">👥 Người dùng</a></li>
+          <li><a href="/html/tuchoidonhang.html">🚫 Từ chối đơn hàng</a></li>
+          <li><a href="/html/settings.html">⚙️ Cài đặt</a></li>
+        </ul>
+      </nav>
+    </aside>
+  </header>
 
-  <!-- Main -->
-  <main class="content">
-    <header class="header">
-      <h1>📦 Quản lý sản phẩm</h1>
-      <button id="logout" class="logout-btn">Đăng xuất</button>
-    </header>
-
-    <section class="card">
-      <form id="productForm" class="form">
-        <input type="hidden" id="p_id">
-        <div class="form-group">
-          <label for="p_name">Tên sản phẩm</label>
-          <input type="text" id="p_name" required>
-        </div>
-        <div class="form-group">
-          <label for="p_price">Giá</label>
-          <input type="text" id="p_price" required>
-        </div>
-        <div class="form-group">
-          <label for="p_desc">Mô tả</label>
-          <input type="text" id="p_desc">
-        </div>
-        <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
-      </form>
-    </section>
-    <section class="card" style="margin-top:20px;">
-      <h2>Danh sách sản phẩm</h2>
-      <table class="table">
-        <thead>
-          <tr><th>ID</th><th>Tên</th><th>Giá</th><th>Mô tả</th><th>Hành động</th></tr>
-        </thead>
-        <tbody id="productsTableBody"></tbody>
-      </table>
-    </section>
+  <main>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm theo tên hoặc mô tả...">
+      <button id="searchBtn">Tìm kiếm</button>
+    </div>
+    
+    <div id="results" class="results"></div>
   </main>
 
-  <!-- ⚡ Chỉnh lại đường dẫn JS đúng theo cấu trúc -->
-  <script type="module" src="../js/auth_guard.js"></script>
-  <script type="module" src="../js/sanpham.js"></script>
+  <script src="../js/sanpham.js"></script>
 </body>
+
 </html>

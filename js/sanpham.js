@@ -1,106 +1,76 @@
-// sanpham.js - Quản lý sản phẩm
-import { db } from "./firebase_config.js";
-import {
-  collection, addDoc, getDocs, doc, deleteDoc, updateDoc,
-  query, orderBy
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+// Gọi API lấy toàn bộ sản phẩm
+let products = [];
 
-const $ = (id) => document.getElementById(id);
-const productForm = $("productForm");
+// Lấy các phần tử trong DOM
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const resultsContainer = document.getElementById("results");
 
-async function loadProducts() {
-  const tbody = $("productsTableBody");        // ID đúng với HTML
-  if (!tbody) {
-    console.error("Không tìm thấy #productsTableBody trong HTML");
+// Hàm render sản phẩm ra màn hình
+function renderProducts(items) {
+  resultsContainer.innerHTML = ""; // xoá kết quả cũ
+  if (items.length === 0) {
+    resultsContainer.innerHTML = "<p>Không tìm thấy sản phẩm nào.</p>";
     return;
   }
 
-  tbody.innerHTML = `<tr><td colspan="5">Đang tải sản phẩm...</td></tr>`;
-  try {
-    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-    const snap = await getDocs(q);
+  items.forEach((p) => {
+    const productEl = document.createElement("div");
+    productEl.classList.add("product");
 
-    tbody.innerHTML = "";
-    if (snap.empty) {
-      tbody.innerHTML = `<tr><td colspan="5">Chưa có sản phẩm nào.</td></tr>`;
-      return;
-    }
+    productEl.innerHTML = `
+      <img src="${p.thumbnail}" alt="${p.title}">
+      <h3>${p.title}</h3>
+      <p>$${p.price}</p>
+    `;
 
-    snap.forEach((docSnap) => {
-      const p = docSnap.data();
-      const tr = tbody.insertRow();
-      tr.innerHTML = `
-        <td>${docSnap.id}</td>
-        <td>${p.name || ""}</td>
-        <td>${new Intl.NumberFormat("vi-VN").format(p.price || 0)} VND</td>
-        <td>${p.description || ""}</td>
-        <td>
-          <button class="btn btn-secondary"
-            onclick="editProduct('${docSnap.id}', '${(p.name || "").replace(/'/g, "\\'")}', ${p.price || 0}, '${(p.description || "").replace(/'/g, "\\'")}')">Sửa</button>
-          <button class="btn btn-danger" onclick="deleteProduct('${docSnap.id}')">Xóa</button>
-        </td>`;
+    // 👉 Khi bấm vào sản phẩm, chuyển sang trang products.html
+    productEl.addEventListener("click", () => {
+      window.location.href = `products.html?id=${p.id}`;
     });
-  } catch (e) {
-    console.error("Lỗi tải sản phẩm:", e);
-    tbody.innerHTML = `<tr><td colspan="5">Lỗi tải dữ liệu.</td></tr>`;
-  }
-}
 
-// Expose các hàm để dùng trong onclick
-window.editProduct = (id, name, price, desc) => {
-  $("p_id").value = id;
-  $("p_name").value = name;
-  $("p_price").value = price;
-  $("p_desc").value = desc;
-  document.querySelector(".btn-primary").textContent = "Cập nhật sản phẩm";
-};
-
-window.deleteProduct = async (id) => {
-  if (!confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
-  try {
-    await deleteDoc(doc(db, "products", id));
-    alert("Đã xóa!");
-    loadProducts();
-  } catch (e) {
-    console.error("Lỗi xóa:", e);
-    alert("Xóa thất bại.");
-  }
-};
-
-// Submit form: thêm / cập nhật
-if (productForm) {
-  productForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const id = $("p_id").value.trim();
-    const name = $("p_name").value.trim();
-    const price = parseFloat($("p_price").value);
-    const desc = $("p_desc").value.trim();
-
-    if (!name) return alert("Tên không được trống.");
-    if (Number.isNaN(price) || price < 0) return alert("Giá không hợp lệ.");
-
-    try {
-      if (id) {
-        await updateDoc(doc(db, "products", id), { name, price, description: desc });
-        alert("Cập nhật thành công!");
-      } else {
-        await addDoc(collection(db, "products"), { name, price, description: desc, createdAt: new Date() });
-        alert("Thêm thành công!");
-      }
-      productForm.reset();
-      $("p_id").value = "";
-      document.querySelector(".btn-primary").textContent = "Lưu sản phẩm";
-      loadProducts();
-    } catch (e) {
-      console.error("Lỗi lưu:", e);
-      alert("Thao tác thất bại.");
-    }
+    resultsContainer.appendChild(productEl);
   });
 }
 
-// Đảm bảo chạy sau khi DOM sẵn sàng (phòng trường hợp script không ở cuối body)
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", loadProducts);
-} else {
-  loadProducts();
-}
+// Khi bấm nút search
+searchBtn.addEventListener("click", () => {
+  const keyword = searchInput.value.toLowerCase().trim();
+
+  // Nếu không có từ khóa, hiển thị tất cả sản phẩm
+  if (!keyword) {
+    renderProducts(products);
+    return;
+  }
+
+  // Lọc sản phẩm theo từ khóa (tìm trong tiêu đề và mô tả)
+  const filtered = products.filter(
+    (p) =>
+      p.title.toLowerCase().includes(keyword) ||
+      (p.description && p.description.toLowerCase().includes(keyword))
+  );
+
+  renderProducts(filtered);
+});
+
+// Khi nhấn Enter trong ô search
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    searchBtn.click();
+  }
+});
+
+// Gọi API và hiển thị tất cả sản phẩm khi trang được tải
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => {
+    products = data.products; // lưu danh sách sản phẩm
+    console.log("Danh sách sản phẩm:", products);
+    // Hiển thị tất cả sản phẩm khi trang được tải
+    renderProducts(products);
+  })
+  .catch((error) => {
+    console.error("Lỗi khi tải sản phẩm:", error);
+    resultsContainer.innerHTML =
+      "<p>Lỗi khi tải sản phẩm. Vui lòng thử lại sau.</p>";
+  });

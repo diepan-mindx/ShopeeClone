@@ -57,6 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <span id="qty">${product.quantity}</span>
             <button id="increaseBtn">+</button>
           </p>
+          <div class="voucher-section">
+            <input type="text" id="voucherInput" placeholder="Nhập mã giảm giá..." />
+            <button id="applyVoucherBtn">Áp dụng</button>
+          </div>
+          // 🎟️ Nút áp dụng voucher
+document.getElementById("applyVoucherBtn").addEventListener("click", () => {
+  alert(" Tính năng mã giảm giá đang được phát triển!");
+});
           <p><strong>Tổng:</strong> $${product.price * product.quantity}</p>
           <p><strong>Mô tả:</strong> ${product.description}</p>
           <button id="confirmOrderBtn">✅ Xác nhận đặt hàng</button>

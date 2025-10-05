@@ -46,3 +46,29 @@ body {
 .order-info button:hover {
   background: #bbb;
 }
+
+.voucher-section {
+  margin: 10px 0 15px 0;
+}
+
+.voucher-section input {
+  padding: 8px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.voucher-section button {
+  padding: 8px 12px;
+  margin-left: 8px;
+  background: #ff9f43;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.voucher-section button:hover {
+  background: #ff7f00;
+}

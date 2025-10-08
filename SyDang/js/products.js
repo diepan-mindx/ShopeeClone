@@ -100,7 +100,7 @@ fetch(`https://dummyjson.com/products/${id}`)
         thumbnail: p.thumbnail,
         description: p.description,
         quantity: 1,
-        docId: cartDocId,
+        addBy: "buyNow", // phân biệt với "addToCart"
       });
 
       window.location.href = "../pages/order.html";

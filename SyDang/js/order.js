@@ -8,6 +8,9 @@ import {
   collection,
   addDoc,
   serverTimestamp,
+  query,
+  where,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const snap = await getDoc(draftRef);
       product = snap.exists() ? snap.data() : null;
-      console.log(product);
     } catch (e) {
       console.error("[order] Lỗi đọc draft Firestore:", e);
     }
@@ -93,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
           await deleteDoc(draftRef);
 
           // 2. Nếu có docId thì xoá khỏi cart
-          // if (product.productId) {
-          //   await deleteDoc(doc(db, "cart", product.productId));
-          // }
+          if (product.addBy !== "buyNow" && product.docId) {
+            await deleteDoc(doc(db, "cart", product.docId));
+          }
 
           // 3. Lưu vào orders
           await addDoc(collection(db, "orders"), {

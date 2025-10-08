@@ -1,0 +1,152 @@
+/* =======================================
+   1. RESET và Kiểu cơ bản
+   ======================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  /* Cho phép Sidebar và Main Content nằm cạnh nhau */
+  display: flex;
+  background: #f5f6fa;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* =======================================
+   2. Giao diện ADMIN PANEL (SIDEBAR)
+   ======================================= */
+.sidebar {
+  width: 220px;
+  background: #2d3436; /* Màu nền xám đậm */
+  color: #fff;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  background: #636e72; /* Màu nền tiêu đề Admin Panel */
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  padding: 12px 20px;
+  color: #dfe6e9;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: #00b894; /* Màu xanh nổi bật của mục đang chọn */
+  color: #fff;
+}
+
+/* =======================================
+   3. MAIN CONTENT VÀ THANH TÌM KIẾM
+   ======================================= */
+main { 
+  flex: 1;
+  padding: 20px;
+}
+
+.search-container {
+  display: flex;
+  max-width: 500px;
+  margin: 0 0 20px 0;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+#searchInput {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+#searchBtn {
+  background: #d26014; /* Màu nút tìm kiếm (từ shop.css) */
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  transition: background 0.2s;
+  height: 100%;
+}
+
+#searchBtn:hover {
+  background: #b74d0e;
+}
+
+/* =======================================
+   4. HIỂN THỊ SẢN PHẨM (PRODUCT GRID)
+   ======================================= */
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.product {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+
+.product h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.product p {
+  color: #d26014; /* Màu giá (từ shop.css) */
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #2d3436; 
+  color: #fff;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  
+  /* THÊM / CHỈNH SỬA DÒNG NÀY */
+  min-height: 155vh; 
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/shop.css"> 
+  <title>Sản phẩm - Admin Shop</title>
+</head>
+
+<body>
+  <header>
+    <aside class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <nav>
+        <ul>
+          <li><a href="home.html">📊 Bảng điều khiển</a></li>
+          <li><a href="sanpham.html" class="active">📦 Sản phẩm</a></li> 
+          <li><a href="donhang.html">🛒 Đơn hàng</a></li>
+          <li><a href="voucher.html">⚡ Khuyến mãi</a></li>
+          <li><a href="ngdung.html">👥 Người dùng</a></li>
+          <li><a href="settings.html">⚙️ Cài đặt</a></li>
+        </ul>
+      </nav>
+    </aside>
+  </header>
+
+  <main>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm theo tên hoặc mô tả...">
+      <button id="searchBtn">Tìm kiếm</button>
+    </div>
+    
+    <div id="results" class="results"></div>
+  </main>
+
+  <script type="module" src="../js/auth_guard.js"></script>
+  <script src="../js/sanpham.js"></script>
+</body>
+
+</html>

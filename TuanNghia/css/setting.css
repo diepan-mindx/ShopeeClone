@@ -1,0 +1,338 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  background: #f5f6fa;
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #2d3436;
+  color: #fff;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  background: #636e72;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  padding: 12px 20px;
+  color: #dfe6e9;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: #00b894;
+  color: #fff;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  background: #d63031;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #e17055;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #636e72;
+}
+
+.card .stat {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2d3436;
+}
+
+/* Table */
+.table, .voucher-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td,
+.voucher-table th, .voucher-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.table th {
+  background: #00cec9;
+  color: #fff;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #fff;
+}
+.badge.pending { background: #fdcb6e; }
+.badge.shipped { background: #0984e3; }
+.badge.done { background: #00b894; }
+.badge.cancel { background: #d63031; }
+
+/* Form */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.save-btn { background: #00b894; }
+.save-btn:hover { background: #019875; }
+
+.error { color: red; margin-top: 10px; }
+
+/* Login Page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dfe6e9;
+}
+
+.login-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Nút hành động trong trang người dùng */
+.btn-primary {
+  background: #0984e3; /* xanh dương nổi bật */
+}
+.btn-primary:hover {
+  background: #74b9ff;
+}
+
+.btn-danger {
+  background: #d63031; /* đỏ */
+}
+.btn-danger:hover {
+  background: #e17055;
+}
+/* Nút hành động cho bảng người dùng / sản phẩm / đơn hàng */
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+/* Nút xanh – Đặt Admin, Sửa */
+.btn-primary {
+  background: #0984e3;
+}
+.btn-primary:hover {
+  background: #74b9ff;
+}
+
+/* Nút đỏ – Xóa */
+.btn-danger {
+  background: #d63031;
+}
+.btn-danger:hover {
+  background: #e17055;
+}
+
+/* Nút xám – nếu bạn có nút nào dạng “Xem” hoặc “Hủy” trung tính */
+.btn-secondary {
+  background: #636e72;
+}
+.btn-secondary:hover {
+  background: #b2bec3;
+}
+
+/* =============== SETTINGS PAGE =============== */
+
+/* Bố cục form */
+#settingsForm {
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+/* Form nhóm */
+#settingsForm .form-group {
+  margin-bottom: 16px;
+}
+
+#settingsForm label {
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Input đẹp hơn */
+#settingsForm input[type="text"],
+#settingsForm input[type="email"],
+#settingsForm input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #2d3436;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+#settingsForm input:focus {
+  outline: none;
+  border-color: #00b894;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0,184,148,0.15);
+}
+
+/* Input bị disabled (như Email) */
+#settingsForm input[disabled] {
+  background: #e0e0e0;
+  color: #636e72;
+  cursor: not-allowed;
+  border-color: #ccc;
+}
+
+/* Avatar Preview */
+#avatarPreview {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: 10px;
+  object-fit: cover;
+  border: 2px solid #00b894;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Nút lưu thay đổi */
+#settingsForm .btn-primary {
+  background: #00b894;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+#settingsForm .btn-primary:hover {
+  background: #019875;
+}
+
+/* Tiêu đề và card */
+.card h2 {
+  font-size: 18px;
+  color: #2d3436;
+  margin-bottom: 15px;
+}
+
+.card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+/* Ghi chú nhỏ dưới ô email trong trang cài đặt */
+body.settings-page .note-email {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #636e72;
+  font-style: italic;
+}
+
+body.settings-page #settingsForm input[disabled] {
+  background: #fff !important;
+  color: #000 !important;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+  opacity: 1;
+}
+

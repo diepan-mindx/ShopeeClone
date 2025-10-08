@@ -1,12 +1,18 @@
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import {doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {
+  doc,
+  setDoc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
 
 const signUpButton = document.getElementById("signUp");
 const signInButton = document.getElementById("signIn");
 const container = document.getElementById("container");
 const backBtn = document.getElementById("backBtn");
-
 
 if (signUpButton) {
   signUpButton.addEventListener("click", () => {
@@ -36,9 +42,15 @@ document.addEventListener("DOMContentLoaded", () => {
     signUpForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const name = signUpForm.querySelector('input[placeholder="Name"]').value.trim();
-      const email = signUpForm.querySelector('input[placeholder="Email"]').value.trim();
-      const password = signUpForm.querySelector('input[placeholder="Password"]').value.trim();
+      const name = signUpForm
+        .querySelector('input[placeholder="Name"]')
+        .value.trim();
+      const email = signUpForm
+        .querySelector('input[placeholder="Email"]')
+        .value.trim();
+      const password = signUpForm
+        .querySelector('input[placeholder="Password"]')
+        .value.trim();
 
       if (!name || !email || !password) {
         alert("Vui lòng nhập đầy đủ thông tin!");
@@ -46,7 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const cred = await createUserWithEmailAndPassword(auth, email, password); // lưu vào xác thực người dùng trên firebase
+        const cred = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        ); // lưu vào xác thực người dùng trên firebase
         const uid = cred.user.uid;
 
         // Ghi hồ sơ người dùng vào Firestore, doc id = uid
@@ -56,10 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
           email,
           joinDate: new Date().toISOString(),
           profilePicture: "../user.png",
+          role: "user",
         });
 
         // Lưu 1 bản vào localStorage cho UI hiện tại dùng
-        localStorage.setItem("currentUser", JSON.stringify({ uid, name, email, profilePicture: "../user.png" }));
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ uid, name, email, profilePicture: "../user.png" })
+        );
         // JSON.stringify là chuyển từ object sang Json và string
         localStorage.setItem("isLoggedIn", "true");
 
@@ -77,8 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
     signInForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const email = signInForm.querySelector('input[placeholder="Email"]').value.trim();
-      const password = signInForm.querySelector('input[placeholder="Password"]').value.trim();
+      const email = signInForm
+        .querySelector('input[placeholder="Email"]')
+        .value.trim();
+      const password = signInForm
+        .querySelector('input[placeholder="Password"]')
+        .value.trim();
 
       if (!email || !password) {
         alert("Vui lòng nhập email và mật khẩu!");
@@ -89,15 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const cred = await signInWithEmailAndPassword(auth, email, password);
         const uid = cred.user.uid;
 
-        // Lấy hồ sơ từ Firestore, nếu chưa có thì tạo tối thiểu
+        // Lấy hồ sơ từ Firestore, kiểm tra nếu tài khoản bị xóa trong firestore thì k cho đăng nhập
         const userRef = doc(db, "users", uid);
         const snap = await getDoc(userRef);
         let profile;
         if (snap.exists()) {
           profile = snap.data();
         } else {
-          profile = { uid, name: "", email, joinDate: new Date().toISOString(), profilePicture: "../user.png" };
-          await setDoc(userRef, profile);
+          throw new Error("Tài khoản không tồn tại trong hệ thống!");
+          return;
         }
 
         localStorage.setItem("currentUser", JSON.stringify(profile));

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cài đặt tài khoản</title>
+  <link rel="stylesheet" href="../css/setting.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">Admin Panel</div>
+    <nav>
+      <ul>
+        <li><a href="home.html">📊 Bảng điều khiển</a></li>
+        <li><a href="sanpham.html">📦 Sản phẩm</a></li>
+        <li><a href="donhang.html">🛒 Đơn hàng</a></li>
+        <li><a href="voucher.html">⚡ Khuyến mãi</a></li>
+        <li><a href="ngdung.html">👥 Người dùng</a></li>
+        <li><a href="settings.html" class="active">⚙️ Cài đặt</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="content">
+    <header class="header">
+      <h1>⚙️ Cài đặt tài khoản</h1>
+      <button id="logout" class="logout-btn">Đăng xuất</button>
+    </header>
+
+    <section class="card">
+      <h2>Thông tin tài khoản</h2>
+      <form id="settingsForm">
+
+        <!-- Avatar -->
+        <div class="form-group">
+          <label for="avatar">Ảnh đại diện (URL)</label>
+          <input type="text" id="avatar" placeholder="https://example.com/avatar.png">
+          <div>
+            <img id="avatarPreview" src="" alt="Avatar Preview"
+              style="width:80px;height:80px;border-radius:50%;margin-top:10px;display:none;">
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">Tên hiển thị</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required disabled>
+          <small class="note-email">Không thể thay đổi email tài khoản</small>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Mật khẩu mới</label>
+          <input type="password" id="password" placeholder="Để trống nếu không đổi">
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <input type="text" id="phone" placeholder="0123456789">
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address">Địa chỉ</label>
+          <input type="text" id="address" placeholder="Nhập địa chỉ">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="../js/auth_guard.js"></script>
+  <script type="module" src="../js/setting.js"></script>
+</body>
+
+</html>

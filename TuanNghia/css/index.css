@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #fff8e1, #d26014);
+  /* nền xanh nhạt */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 380px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.tabs button.active {
+  border-bottom: 3px solid #46442ce3;
+  /* màu chủ đạo */
+  color: #cc6d2e;
+}
+
+form {
+  display: none;
+  flex-direction: column;
+}
+
+form.active {
+  display: flex;
+}
+
+input {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button.submit-btn {
+  margin-top: 10px;
+  padding: 12px;
+  background: #5da2e2;
+  /* màu nút */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button.submit-btn:hover {
+  background: #08576b;
+  /* màu đậm hơn khi hover */
+}
+
+.note {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

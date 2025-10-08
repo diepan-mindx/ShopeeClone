@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" /> 
+    <title>Login / Signup</title>
+  </head>
+  <body>
+    <div class="container"> 
+        <div class="tabs">
+            <button id="loginTab" class="active">Đăng nhập</button>
+            <!-- <button id="signupTab">Đăng ký</button> -->
+        </div>
+
+        <form id="loginForm" class="active">
+            <input type="email" id="login-email" name="email" placeholder="Email" required/>
+            <br />
+            <input type="password" id="login-password" name="password" placeholder="Mật khẩu" required/>
+            <br />
+            <p id="login-error" class="error-message"></p>
+            <input type="submit" value="Đăng nhập" />
+            <br />
+            <hr />
+        </form>
+
+        <!-- <form id="signupForm">
+            <input type="text" id="signup-name" name="name" placeholder="Tên hiển thị" required/>
+            <br />
+            <input type="email" id="signup-email" name="email" placeholder="Email" required/>
+            <br />
+            <input type="password" id="signup-password" name="password" placeholder="Mật khẩu" required/>
+            <br />
+            <input type="password" id="signup-confirm" name="confirm" placeholder="Xác nhận mật khẩu" required/>
+            <br />
+            <p id="signup-error" class="error-message"></p>
+            <input type="submit" value="Đăng ký" />
+        </form> -->
+    </div>
+</div>
+    <script type="module" src="./js/login.js"></script> 
+  </body>
+</html>
+

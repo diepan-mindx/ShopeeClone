@@ -6,7 +6,7 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         // Chưa đăng nhập → về trang login
-        // window.location.href = "../index.html";
+        window.location.href = "../index.html";
         return;
     }
 
